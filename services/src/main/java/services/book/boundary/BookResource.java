@@ -1,9 +1,9 @@
 package services.book.boundary;
 
-import services.book.data.Person;
 import services.book.data.Book;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -25,6 +25,9 @@ public class BookResource extends AbstractFacade<Book> {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Inject
+    BookService bookService;
+
     public BookResource() {
         super(Book.class);
     }
@@ -44,7 +47,7 @@ public class BookResource extends AbstractFacade<Book> {
     @GET
     @Path("{isbn}")
     public Book getBook(@PathParam("isbn") Long id) {
-        return new Book();
+        return find(id);
     }
 
     @GET
@@ -55,20 +58,7 @@ public class BookResource extends AbstractFacade<Book> {
 
     @POST
     public Book saveBook(Book book) {
-        if (book.getIsbn() == 0) {
-            Person personToSave = new Person();
-            personToSave.setName(book.getName());
-            personToSave.setDescription(book.getDescription());
-            entityManager.persist(book);
-        } else {
-            Book bookToUpdate = getBook(book.getIsbn());
-            bookToUpdate.setName(book.getName());
-            bookToUpdate.setDescription(book.getDescription());
-
-            book = entityManager.merge(bookToUpdate);
-        }
-
-        return book;
+        return bookService.saveBook(book);
     }
 
     @DELETE
