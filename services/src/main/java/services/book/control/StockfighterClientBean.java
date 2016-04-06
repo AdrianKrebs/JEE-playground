@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.transaction.Transactional;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -19,7 +18,6 @@ import java.io.Serializable;
  * Controller for my fist attempts to complete a level in the stockfighter coding challenge
  * Created by Adrian on 2/9/2016.
  */
-@Named
 @SessionScoped
 public class StockfighterClientBean implements StockfighterMngmtService, Serializable
 {

@@ -9,7 +9,6 @@ import javax.batch.operations.JobOperator;
 import javax.batch.operations.JobStartException;
 import javax.batch.runtime.BatchRuntime;
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import java.util.Properties;
 
 /**
@@ -17,7 +16,6 @@ import java.util.Properties;
  * @author Adrian
  */
 @Stateless
-@Named
 public class SalesBean
 {
 
