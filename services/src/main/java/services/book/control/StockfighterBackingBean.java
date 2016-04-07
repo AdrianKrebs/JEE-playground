@@ -45,5 +45,4 @@ public class StockfighterBackingBean implements Serializable{
         this.actors = actors;
     }
 
-
 }
