@@ -45,6 +45,7 @@ public class Lesson2
         exercise6();
         System.out.println("Running exercise 7 solution...");
         exercise7();
+        System.out.println("finished");
     }
 
     /**
