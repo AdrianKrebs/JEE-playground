@@ -1,7 +1,7 @@
 package services.book.util;
 
 /**
- * Created by U116523 on 06.04.2016.
+ * Created by U116523 on 07.04.2016.
  */
 public class Java8Samples {
 
@@ -12,4 +12,6 @@ public class Java8Samples {
     // Lambda
     // DateTime
     //
+
+
 }
