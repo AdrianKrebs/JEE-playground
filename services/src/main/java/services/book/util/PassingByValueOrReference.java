@@ -5,6 +5,10 @@ package services.book.util;
  */
 public class PassingByValueOrReference {
 
+    // is not a Dog; it's actually a pointer to a Dog.
+    //Java is always pass-by-value. Unfortunately, they decided to call pointers references, thus confusing newbies. Because those references are passed by value.
+    // Discussion here http://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value
+
     public static void main(String[] args) {
         {
             Dog aDog = new Dog("Max");
@@ -25,13 +29,13 @@ public class PassingByValueOrReference {
         d.getName().equals("Max"); // true
 
         // by value
-//        d = new Dog("Fifi");
-//        d.getName().equals("Fifi"); // true
+        //        d = new Dog("Fifi");
+        //        d.getName().equals("Fifi"); // true
 
         d.setName("Fifi");
     }
 
-   static class Dog {
+    static class Dog {
 
         String name;
 
