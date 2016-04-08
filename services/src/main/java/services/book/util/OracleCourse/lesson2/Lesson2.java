@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,21 +29,23 @@ public class Lesson2
      */
     public void runExercises() throws IOException
     {
-        System.out.println("JDK 8 Lambdas and Streams MOOC Lesson 2");
-        System.out.println("Running exercise 1 solution...");
-        exercise1();
-        System.out.println("Running exercise 2 solution...");
-        exercise2();
-        System.out.println("Running exercise 3 solution...");
-        exercise3();
-        System.out.println("Running exercise 4 solution...");
-        exercise4();
-        System.out.println("Running exercise 5 solution...");
-        exercise5();
-        System.out.println("Running exercise 6 solution...");
-        exercise6();
-        System.out.println("Running exercise 7 solution...");
-        exercise7();
+//        System.out.println("JDK 8 Lambdas and Streams MOOC Lesson 2");
+//        System.out.println("Running exercise 1 solution...");
+//        exercise1();
+//        System.out.println("Running exercise 2 solution...");
+//        exercise2();
+//        System.out.println("Running exercise 3 solution...");
+//        exercise3();
+//        System.out.println("Running exercise 4 solution...");
+//        exercise4();
+//        System.out.println("Running exercise 5 solution...");
+//        exercise5();
+//        System.out.println("Running exercise 6 solution...");
+//        exercise6();
+//        System.out.println("Running exercise 7 solution...");
+//        exercise7();
+
+        flatMap();
     }
 
     /**
@@ -153,6 +154,54 @@ public class Lesson2
 
         }
     }
+
+    public void flatMap() {
+        List<Developer> team = new ArrayList<>();
+        Developer polyglot = new Developer("esoteric");
+        polyglot.add("clojure");
+        polyglot.add("scala");
+        polyglot.add("groovy");
+        polyglot.add("go");
+
+        Developer busy = new Developer("pragmatic");
+        busy.add("java");
+        busy.add("javascript");
+
+        team.add(polyglot);
+        team.add(busy);
+
+
+        List<Set<String>> teamLanguagesList = team.stream().
+                map(d -> d.getLanguages()).collect(Collectors.toList());;
+        teamLanguagesList.forEach(System.out::println);
+
+        List<String> teamLanguagesFlattened = team.stream().
+                map(d -> d.getLanguages()).
+                flatMap(l -> l.stream()).
+                collect(Collectors.toList());
+        teamLanguagesFlattened.forEach(System.out::println);
+    }
+
+
+    public class Developer {
+
+        private String name;
+        private Set<String> languages;
+
+        public Developer(String name) {
+            this.languages = new HashSet<>();
+            this.name = name;
+        }
+
+        public void add(String language) {
+            this.languages.add(language);
+        }
+
+        public Set<String> getLanguages() {
+            return languages;
+        }
+    }
+
 
     /**
      * Main entry point for application
