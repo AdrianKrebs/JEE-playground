@@ -1,4 +1,4 @@
-package services.book.data;
+package services.book.data.VisitorPattern;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,11 +37,13 @@ public abstract class Employee {
 
     // no body for abstract methods
     // each type of employee is payed differently
-    public abstract void calculatePay(Employee employee);
+    //public abstract void calculatePay(Employee employee);
 
     //declare basic behaviour for all Employees here in the abstract class
-    public void fireEmployee(Employee employee) {
-        System.out.println("you are fired! "+ employee.getName());
-    }
+    //public void fireEmployee(Employee employee) {
+     //   System.out.println("you are fired! "+ employee.getName());
+   // }
+
+    public abstract void accept(EmployeeVisitor visitor);
 
 }

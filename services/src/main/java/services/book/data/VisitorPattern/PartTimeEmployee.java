@@ -1,4 +1,4 @@
-package services.book.data;
+package services.book.data.VisitorPattern;
 
 import javax.persistence.Entity;
 
