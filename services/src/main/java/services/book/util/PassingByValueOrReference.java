@@ -32,6 +32,7 @@ public class PassingByValueOrReference {
         //        d = new Dog("Fifi");
         //        d.getName().equals("Fifi"); // true
 
+        // by reference (java named pointers references)
         d.setName("Fifi");
     }
 

@@ -10,10 +10,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.ws.rs.HEAD;
+
+import services.book.data.Person;
 
 /**
  * @author Speakjava (simon.ritter@oracle.com)
@@ -154,6 +157,69 @@ public class Lesson2
 
         }
     }
+
+    public void flatMap() {
+        List<Developer> team = new ArrayList<>();
+        Developer polyglot = new Developer("esoteric");
+        polyglot.add("clojure");
+        polyglot.add("scala");
+        polyglot.add("groovy");
+        polyglot.add("go");
+
+        Developer busy = new Developer("pragmatic");
+        busy.add("java");
+        busy.add("javascript");
+
+        team.add(polyglot);
+        team.add(busy);
+
+
+        List<Set<String>> teamLanguagesList = team.stream().
+                map(d -> d.getLanguages()).collect(Collectors.toList());;
+        teamLanguagesList.forEach(System.out::println);
+
+        List<String> teamLanguagesFlattened = team.stream().
+                map(d -> d.getLanguages()).
+                flatMap(l -> l.stream()).
+                collect(Collectors.toList());
+        teamLanguagesFlattened.forEach(System.out::println);
+    }
+
+    public void createMap() {
+
+        List<Developer> developersList = new ArrayList<>(Arrays.asList(new Developer("csharp")));
+        List<Person> personList = new ArrayList<>(Arrays.asList(new Person("peter")));
+
+
+            Map<String, Set<String>> rksProLb = developersList.stream()
+                    .collect(Collectors.toMap(
+                            // Map from lb id.
+                            dev -> dev.name,
+                            // To the rks itself.
+                            dev -> dev.getLanguages()));
+
+    }
+
+
+    public class Developer {
+
+        private String name;
+        private Set<String> languages;
+
+        public Developer(String name) {
+            this.languages = new HashSet<>();
+            this.name = name;
+        }
+
+        public void add(String language) {
+            this.languages.add(language);
+        }
+
+        public Set<String> getLanguages() {
+            return languages;
+        }
+    }
+
 
     /**
      * Main entry point for application
