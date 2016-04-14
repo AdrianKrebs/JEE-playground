@@ -42,6 +42,7 @@ public class BookService extends  AbstractFacade<Book> {
 
 
 
+
     @Override
     protected EntityManager getEntityManager() {
         return entityManager;

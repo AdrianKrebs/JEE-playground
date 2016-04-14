@@ -5,8 +5,6 @@
  */
 package services.book.util.OracleCourse.lesson2;
 
-import services.book.data.Person;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +13,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.ws.rs.HEAD;
+
+import services.book.data.Person;
 
 /**
  * @author Speakjava (simon.ritter@oracle.com)
@@ -31,23 +33,22 @@ public class Lesson2
      */
     public void runExercises() throws IOException
     {
-//        System.out.println("JDK 8 Lambdas and Streams MOOC Lesson 2");
-//        System.out.println("Running exercise 1 solution...");
-//        exercise1();
-//        System.out.println("Running exercise 2 solution...");
-//        exercise2();
-//        System.out.println("Running exercise 3 solution...");
-//        exercise3();
-//        System.out.println("Running exercise 4 solution...");
-//        exercise4();
-//        System.out.println("Running exercise 5 solution...");
-//        exercise5();
-//        System.out.println("Running exercise 6 solution...");
-//        exercise6();
-//        System.out.println("Running exercise 7 solution...");
-//        exercise7();
-
-        flatMap();
+        System.out.println("JDK 8 Lambdas and Streams MOOC Lesson 2");
+        System.out.println("Running exercise 1 solution...");
+        exercise1();
+        System.out.println("Running exercise 2 solution...");
+        exercise2();
+        System.out.println("Running exercise 3 solution...");
+        exercise3();
+        System.out.println("Running exercise 4 solution...");
+        exercise4();
+        System.out.println("Running exercise 5 solution...");
+        exercise5();
+        System.out.println("Running exercise 6 solution...");
+        exercise6();
+        System.out.println("Running exercise 7 solution...");
+        exercise7();
+        System.out.println("finished");
     }
 
     /**
