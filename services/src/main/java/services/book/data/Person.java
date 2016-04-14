@@ -14,6 +14,13 @@ public class Person {
     @SequenceGenerator(name = "id", sequenceName = "id")
     private Long id;
 
+    public Person() {
+    }
+
+    public Person(String name) {
+        this.name = name;
+    }
+
     private String name;
 
     private String description;

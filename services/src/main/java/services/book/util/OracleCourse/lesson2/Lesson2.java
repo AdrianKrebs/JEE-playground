@@ -5,6 +5,8 @@
  */
 package services.book.util.OracleCourse.lesson2;
 
+import services.book.data.Person;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -180,6 +182,21 @@ public class Lesson2
                 flatMap(l -> l.stream()).
                 collect(Collectors.toList());
         teamLanguagesFlattened.forEach(System.out::println);
+    }
+
+    public void createMap() {
+
+        List<Developer> developersList = new ArrayList<>(Arrays.asList(new Developer("csharp")));
+        List<Person> personList = new ArrayList<>(Arrays.asList(new Person("peter")));
+
+
+            Map<String, Set<String>> rksProLb = developersList.stream()
+                    .collect(Collectors.toMap(
+                            // Map from lb id.
+                            dev -> dev.name,
+                            // To the rks itself.
+                            dev -> dev.getLanguages()));
+
     }
 
 
