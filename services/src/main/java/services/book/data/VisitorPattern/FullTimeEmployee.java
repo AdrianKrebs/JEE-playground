@@ -21,8 +21,9 @@ public class FullTimeEmployee extends Employee {
         this.salary = salary;
     }
 
-    @Override
-    public void calculatePay(Employee employee) {
 
+    @Override
+    public void accept(EmployeeVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -22,7 +22,8 @@ public class PartTimeEmployee  extends  Employee{
     }
 
     @Override
-    public void calculatePay(Employee employee) {
+    public void accept(EmployeeVisitor visitor) {
+        visitor.visit(this);
 
     }
 }
