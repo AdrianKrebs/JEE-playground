@@ -39,9 +39,6 @@ public class Java8Samples {
 
 
 
-
-
-
     public static void main(String[] args) {
 
     }

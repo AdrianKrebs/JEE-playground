@@ -22,15 +22,15 @@ public class AcmeReservationCount implements Runnable, Serializable {
 //    /**
 //     * Prints a count of reservations.
 //     */
-//    public void runCountReport() {
-//        System.out.println("Park Reservation Count for Today");
-//        System.out.println("===============================");
-//
-//        Long reservationCount = parkReservationFacade.findCount();
-//        System.out.println(reservationCount);
-//
-//        // Email in production application
-//    }
+    public void runCountReport() {
+        System.out.println("Park Reservation Count for Today");
+        System.out.println("===============================");
+
+       // Long reservationCount = parkReservationFacade.findCount();
+      //  System.out.println(reservationCount);
+
+        // Email in production application
+    }
 //
 //    private ParkReservationFacade lookupParkReservationFacadeBean() {
 //        try {
