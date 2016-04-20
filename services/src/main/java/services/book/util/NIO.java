@@ -1,5 +1,8 @@
 package services.book.util;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,6 +28,12 @@ public class NIO {
         String [] elements = content.split("#");
         String effectiveContent = elements[7].trim();
         System.out.println(effectiveContent);
+
+        // parse json... with jackson
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree("{\"k1\":\"v1\"}");
 
     }
 
