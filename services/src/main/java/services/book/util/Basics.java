@@ -1,0 +1,84 @@
+package services.book.util;
+
+/**
+ * Created by Adrian on 4/26/2016.
+ */
+public class Basics {
+
+    //TODO: Working directories -> paths
+    //TODO: Imports --> wildcards
+    //TODO: instance variables, local variables
+    //TODO: underscores
+    //TODO: garbage collection
+
+    // declaration here
+    String[] test; // works as i know it
+    String test2[]; // works as well!!!
+
+
+    // only allowed between two digits
+    int underscore$test = 1_223;
+    double underscoreDouble = 1_2231.23424;
+
+    public Basics(String[] test) {
+
+        // init in constructor
+        test2 = new String[10];
+        test2[0] = "test";
+
+
+    }
+
+    private void variableInitialization() {
+        // local variable
+        String test;
+
+        // fails because not initialized -_> nullpointer
+        //System.out.println(test);
+    }
+
+    private void garbageCollectionTest() {
+
+
+        // The most important distinction is that while procedural programming uses procedures to operate on data structures, object-oriented programming bundles the two together,
+        // so an "object", which is an instance of a class, operates on its "own" data structure
+
+        //  Java compiles to bytecode instead of native machine code. The Java virtual machine interprets and executes that bytecode,
+        // and translates it to native machine code using a just-in-time compiler to make it run fast.
+
+
+        WeekendWarrior warrior = new WeekendWarrior();
+        WeekendWarrior warrior1 = warrior;
+        // calling system.gc suggest that java might wish to run the gc. java is free to ignore the request.
+        // finalize runs if an object attempts to be garbage collected
+        System.gc();
+
+
+    }
+
+    private void testImports() {
+        // * does not import classes in sub-packages. just all classes in the same package
+    }
+
+
+    private class WeekendWarrior {
+        String test;
+
+        @Override
+        protected void finalize() throws Throwable {
+            super.finalize();
+        }
+
+
+        // this shit is allowed --> not a constructor!!!!
+        public void WeekendWarrior() {
+
+        }
+
+        // constructor
+        public WeekendWarrior() {
+        }
+    }
+
+
+}
