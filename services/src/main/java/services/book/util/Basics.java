@@ -27,7 +27,47 @@ public class Basics {
         test2[0] = "test";
 
 
+        // a lower datatype is allowed, higher not
+        short testNumber = 5;
+        int testInt = testNumber * 5;
+
+
     }
+
+
+    private void forLoopWithoutBraces() {
+
+// jesus christ this works --> same principe as an if statement without braces -> just the first line is executed
+        OUTER_LOOP:
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 4; j++) {
+                if (j * i % 2 == 0)
+                    continue OUTER_LOOP;
+            }
+    }
+
+    private void exclusiceOrTest() {
+        // in case of booleans xor is x != y
+
+        boolean[] all = {false, true};
+        for (boolean a : all) {
+            for (boolean b : all) {
+                boolean c = a ^ b;
+                System.out.println(a + " ^ " + b + " = " + c);
+            }
+        }
+    }
+
+
+    private void ternaryOperator() {
+       // booleanExpression ? expression1 : expression2
+        int x = 5;
+        System.out.println(x > 2 ? x < 4 ? 10 : 8 : 7);
+
+        System.out.println((x > 2) ? ((x < 4) ? 10 : 8) : 7);
+
+    }
+
 
     private void variableInitialization() {
         // local variable
