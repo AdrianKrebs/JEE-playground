@@ -29,7 +29,9 @@ public class Basics {
 
         // a lower datatype is allowed, higher not
         short testNumber = 5;
+        char testChar = 'a';
         int testInt = testNumber * 5;
+        testInt = testChar;
 
 
     }
