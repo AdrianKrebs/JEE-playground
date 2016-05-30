@@ -34,6 +34,13 @@ public class Basics {
         testInt = testChar;
 
 
+        // ---- calling order
+        /*First, static statements/blocks are called IN THE ORDER they are defined.
+                Next, instance initializer statements/blocks are called IN THE ORDER they are defined.
+                Finally, the constructor is called
+                */
+
+
     }
 
 
@@ -60,9 +67,23 @@ public class Basics {
         }
     }
 
+    private void doingWhile() {
+
+
+        int i = 1, j = 10;
+        do {
+            if (i++ > --j) {
+                continue;
+            }
+        } while (i < 5);
+        System.out.println("i=" + i + " j=" + j);
+
+
+    }
+
 
     private void ternaryOperator() {
-       // booleanExpression ? expression1 : expression2
+        // booleanExpression ? expression1 : expression2
         int x = 5;
         System.out.println(x > 2 ? x < 4 ? 10 : 8 : 7);
 
@@ -121,6 +142,20 @@ public class Basics {
         public WeekendWarrior() {
         }
     }
+
+    /* access modifiers in Java
+    ---------------------------
+    Access Levels
+Modifier        Class   Package Subclass    World
+public            Y       Y       Y          Y
+protected         Y       Y       Y          N
+(Default)         Y       Y       N          N
+private           Y       N       N          N
+     */
+
+
+
+
 
 
 }
