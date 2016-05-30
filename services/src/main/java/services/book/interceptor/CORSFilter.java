@@ -1,4 +1,4 @@
-package services.book.util;
+package services.book.interceptor;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

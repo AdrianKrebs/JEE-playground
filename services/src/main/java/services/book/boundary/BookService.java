@@ -1,12 +1,16 @@
 package services.book.boundary;
 
+import services.book.data.Author;
 import services.book.data.Book;
+import services.book.data.Condition;
 import services.book.data.Person;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by U116523 on 06.04.2016.
@@ -39,6 +43,8 @@ public class BookService extends  AbstractFacade<Book> {
 
         return book;
     }
+
+
 
 
 

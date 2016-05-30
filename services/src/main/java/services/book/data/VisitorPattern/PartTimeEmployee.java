@@ -1,4 +1,4 @@
-package services.book.data;
+package services.book.data.VisitorPattern;
 
 import javax.persistence.Entity;
 
@@ -22,7 +22,8 @@ public class PartTimeEmployee  extends  Employee{
     }
 
     @Override
-    public void calculatePay(Employee employee) {
+    public void accept(EmployeeVisitor visitor) {
+        visitor.visit(this);
 
     }
 }

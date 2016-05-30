@@ -1,4 +1,4 @@
-package services.book.control;
+package services.book.control.StockfighterGame;
 
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
