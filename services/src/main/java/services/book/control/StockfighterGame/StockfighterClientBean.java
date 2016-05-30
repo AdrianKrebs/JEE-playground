@@ -17,6 +17,15 @@ import java.io.Serializable;
  *
  * Controller for my fist attempts to complete a level in the stockfighter coding challenge
  * Created by Adrian on 2/9/2016.
+ *
+ * "POST /books" with a bunch of book information might create a new book, and respond with the new URL identifying that book: "/books/5".
+
+ "PUT /books/5" would have to either create a new book with the id of 5, or replace the existing book with ID 5.
+
+ Methods can also have the property of "idempotence" in that (aside from error or expiration issues) the side-effects of N > 0 identical requests is the same as for a single request.
+ The methods GET, HEAD, PUT and DELETE share this property. Also, the methods OPTIONS and TRACE SHOULD NOT have side effects, and so are inherently idempotent.
+
+ PUT is idempotent, The POST method is not idempotent,
  */
 @SessionScoped
 public class StockfighterClientBean implements StockfighterMngmtService, Serializable
