@@ -38,6 +38,16 @@ public class BookResource extends AbstractFacade<Book> {
     }
 
     private List<Book> findBooks(int startPosition, int maxResults, String sortFields, String sortDirections) {
+       /* -- This table reference contains authors and their books.
+                -- There is one record for each book and its author.
+                -- authors without books are NOT included
+        author JOIN book ON author.id = book.author_id
+                -- This table reference contains authors and their books
+        -- There is one record for each book and its author.
+                -- ... OR there is an "empty" record for authors without books
+                -- ("empty" meaning that all book columns are NULL)
+        author LEFT OUTER JOIN book ON author.id = book.author_id
+*/
         Query query = entityManager.createQuery("SELECT b FROM Book b ORDER BY b." + sortFields + " " + sortDirections);
         query.setFirstResult(startPosition);
         query.setMaxResults(maxResults);
