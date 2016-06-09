@@ -2,6 +2,8 @@ package services.book.util;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -53,5 +55,48 @@ public class StringTest {
         //then
         assertTrue(found);
     }
+
+
+    // Quiz
+
+
+    @Test
+    public void exercise1() {
+        String hi = "Hi, ";
+        String mom = "mom.";
+
+        System.out.println(hi.concat(mom));
+
+        System.out.println(new StringBuilder(hi).append(mom));
+    }
+
+    @Test
+    public void initialsOfFullName() {
+       String fullName = "Adrian Krebs";
+
+        System.out.println(fullName.charAt(0) + "." + fullName.split("\\s")[1].charAt(0));
+    }
+
+    @Test
+    public void anagram() {
+        String original = "software";
+        String anagramOfIt = "swear oft";
+
+        //Ternary operators can't have statements that don't return values, void methods
+
+
+        char[] word1 = original.replaceAll("[\\s]", "").toCharArray();
+        char[] word2 = anagramOfIt.replaceAll("[\\s]", "").toCharArray();
+        Arrays.sort(word1);
+        Arrays.sort(word2);
+
+
+        System.out.println( Arrays.equals(word1,word2) ? "yes "+ anagramOfIt+ " is an anagram of "+ original : "no "+ anagramOfIt+ " is NOT an anagram of "+ original);
+        // check for containing same letters
+
+        ;
+    }
+
+
 
 }
