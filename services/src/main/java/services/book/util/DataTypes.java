@@ -28,6 +28,11 @@ public class DataTypes {
         b1 = b2 = b3 = true; // allowed because same type
 
 
+//   (superclass)                                        Number
+                            //                   __________/\__________
+                            //                /       |      |       \
+//   (concrete subclasses)               Integer   Long    Float   Double
+
 
 
     }

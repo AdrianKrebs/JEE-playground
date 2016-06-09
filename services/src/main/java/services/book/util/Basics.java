@@ -7,9 +7,12 @@ public class Basics {
 
     //TODO: Working directories -> paths
     //TODO: Imports --> wildcards
-    //TODO: instance variables, local variables
-    //TODO: underscores
+    //TODO: instance variables, local variabless
     //TODO: garbage collection
+
+
+    // https://docs.oracle.com/javase/tutorial/extra/certification/index.html
+
 
     // declaration here
     String[] test; // works as i know it
@@ -31,6 +34,8 @@ public class Basics {
         short testNumber = 5;
         char testChar = 'a';
         int testInt = testNumber * 5;
+
+        // widening and narrowing
         testInt = testChar;
 
 
