@@ -25,6 +25,9 @@ public class PassingByValueOrReference {
 
     }
 
+    // you cant set a new Dog to Max --> its not a reference its a value which is passed
+   // Java passes references by value. What this means is that you can legitimately call mutating methods on the parameters of a method,
+    // but you cannot reassign them and expect the value to propagate.
     public static void foo(Dog d) {
         d.getName().equals("Max"); // true
 
