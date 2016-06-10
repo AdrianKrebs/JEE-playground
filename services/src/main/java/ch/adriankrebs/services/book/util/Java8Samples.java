@@ -54,13 +54,20 @@ public class Java8Samples {
         }
     }
 
+    public static void convertStringToBytes(String parameter) {
+
+        System.out.println(Arrays.toString(parameter.getBytes()));
+
+    }
+
+
 
 
 
 
 
     public static void main(String[] args) {
-        List<Person> roster = new ArrayList<>(Arrays.asList(new Person()));
+        List<Person> roster = new ArrayList<>(Arrays.asList(new Person.PersonBuilder().setName("test").setAge(24).setEmailAddress("test@test.ch").setGender(Person.Sex.MALE).createPerson()));
         processPersonsWithFunction(
                 roster,
                 p -> p.getGender() == Person.Sex.MALE
@@ -70,9 +77,17 @@ public class Java8Samples {
                 email -> System.out.println(email)
         );
 
+
+        processPersonsWithFunction(roster,
+                p -> p.getAge() < 50,
+                p -> Integer.toString(p.getAge()),
+                Java8Samples::convertStringToBytes);
+
     }
 
     public static class Person {
+
+        private int age;
 
         public enum Sex {
             MALE, FEMALE
@@ -84,7 +99,7 @@ public class Java8Samples {
         String emailAddress;
 
         public int getAge() {
-          return 6;
+            return age;
         }
 
         public void printPerson() {
@@ -98,7 +113,58 @@ public class Java8Samples {
         public Sex getGender() {
             return gender;
         }
-    }
 
+        public Person(int age, String name, LocalDate birthday, Sex gender, String emailAddress) {
+            this.age = age;
+            this.name = name;
+            this.birthday = birthday;
+            this.gender = gender;
+            this.emailAddress = emailAddress;
+        }
+
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public static final class PersonBuilder {
+            private int age;
+            private String name;
+            private LocalDate birthday;
+            private Java8Samples.Person.Sex gender;
+            private String emailAddress;
+
+            public PersonBuilder setAge(int age) {
+                this.age = age;
+                return this;
+            }
+
+            public PersonBuilder setName(String name) {
+                this.name = name;
+                return this;
+            }
+
+            public PersonBuilder setBirthday(LocalDate birthday) {
+                this.birthday = birthday;
+                return this;
+            }
+
+            public PersonBuilder setGender(Java8Samples.Person.Sex gender) {
+                this.gender = gender;
+                return this;
+            }
+
+            public PersonBuilder setEmailAddress(String emailAddress) {
+                this.emailAddress = emailAddress;
+                return this;
+            }
+
+            public Java8Samples.Person createPerson() {
+                return new Java8Samples.Person(age, name, birthday, gender, emailAddress);
+            }
+        }
+
+
+    }
 
 }
