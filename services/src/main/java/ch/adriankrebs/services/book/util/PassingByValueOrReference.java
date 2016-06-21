@@ -1,5 +1,7 @@
 package ch.adriankrebs.services.book.util;
 
+import java.util.Stack;
+
 /**
  * Created by U116523 on 06.04.2016.
  */
@@ -22,9 +24,28 @@ public class PassingByValueOrReference {
             }
 
         }
-
+        Stack s1 = new Stack ();
+        Stack s2 = new Stack ();
+        processStacks (s1,s2);
+        System.out.println (s1 + "    "+ s2);
     }
+    public static void processStacks(Stack x1, Stack x2){
+//        Step 2;
+//        s1 -----> [ 100 ] STACK 1 OBJECT <----x1 Local variable
+//        Because x1 is referring to the same memory location.
+//                s2 -----> [ EMPTY ] STACK 2 OBJECT <---x2 Local variable
+//
+//        Step 3: After doing x2 = x1
+//        s1 ---> [ 100 ] STACK 1 OBJECT <---- x1 and x2 Local variables
+//        s1 and x1 both contain 15000 (say) and x2 now also contains 15000.
+//        s2 ------------> [ EMPTY ] STACK 2 OBJECT
+//
+//        But s2 still contains 25000.
 
+
+        x1.push (new Integer ("100")); //assume that the method push adds the passed object to the stack.
+        x2 = x1;
+    }
     // you cant set a new Dog to Max --> its not a reference its a value which is passed
    // Java passes references by value. What this means is that you can legitimately call mutating methods on the parameters of a method,
     // but you cannot reassign them and expect the value to propagate.

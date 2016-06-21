@@ -7,9 +7,17 @@ public class Polymorphism {
 
 
     static class Super {
+
+        public static void parseMeSuper() {
+
+        }
     }
 
     static class Sub extends Super {
+
+        public static void parseMeSub() {
+
+        }
     }
 
     public static void main(String[] args) {
@@ -23,10 +31,22 @@ public class Polymorphism {
         Super s1 = new Super(); //1
         Sub s2 = new Sub();
         // works
-        s1 = (Super) s2;        //3
+
+        // i can either assign a sub to its superclass
+        // or cast the sub to the superclass
+      //  s1 = s2;
+        s2.parseMeSub();
+        s2.parseMeSuper();
+        s1.parseMeSuper();
+        //s1 = (Super)s2;        //3
+        s1.parseMeSuper();
 
         //throws classcastexception
-        s2 = (Sub) s1;
+        s1 = new Sub();
+       // s2 = (Sub) s1;
+
+        ((Sub)s1).parseMeSub();
+
 
         //----------------------------
 
@@ -37,7 +57,35 @@ public class Polymorphism {
         System.out.println(c.k);
 
 
+
+
+        Z a = null;
+        ZZ aa = null;
+
+        aa = (ZZ) a;
+
+
+//        aa = (AA) a;
+//        a is declared as a reference of class A and therefore, at run time, it is possible for a to point to an object of class AA (because A is a super class of AA).
+//        Hence, the compiler will not complain. Although if a does not point to an object of class AA at run time, a ClassCastException will be thrown.
+//        aa = a;
+//        A cast is required because the compiler needs to be assured that at run time a will point to an object of class AA.
+//        ((AA)a).doStuff();
+//        Once you cast a to AA, you can call methods defined in AA. Of course, if a does not point to an object of class AA at runtime, a ClassCastException will be thrown.
+//        In this particular case, a NullPointerException will be thrown because a points to null and a null can be cast to any class.
+
+
     }
+
+    class Z {
+        public int getCode(){ return 2;}
+    }
+
+    class ZZ extends Z {
+        public void doStuff() {
+        }
+    }
+
 
 
     //extend multiple interfaces from each other
@@ -88,6 +136,9 @@ public class Polymorphism {
     }
 
 
+
+
+
     /* native keyword in Java
        --------------------------------------
 
@@ -128,6 +179,13 @@ public class Polymorphism {
 
     static class Overload {
 
+        // ONLY PARAMETERS MATTER!!!
+
+
+//        There is no restriction on the return type. If the parameters are different then the methods are totally different (other than the name) so their return types can be anything.
+
+//        Overloading of a method occurs when the name of more than one methods is exactly same but the parameter lists are different.
+
         private String overloadTestMethod(int size, int max) {
             return "lol java certification sucks :)";
         }
@@ -139,6 +197,13 @@ public class Polymorphism {
         private String overloadTestMethod(int size) {
             return "lol java certification sucks :)";
         }
+
+        private int overloadTestMethod(int size, int test2, int test_2) {
+            return 5;
+        }
+
+        void perform_work(int time){ }
+        int  perform_work(int time, int speed){ return time*speed ;}
     }
 
 

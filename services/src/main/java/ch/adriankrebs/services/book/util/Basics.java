@@ -190,7 +190,10 @@ public class Basics {
 
 
     private class WeekendWarrior {
+
         String test;
+
+
 
         @Override
         protected void finalize() throws Throwable {

@@ -46,6 +46,7 @@ public class Loops {
             for (String inner : programmers) {
                 System.out.print(inner + ":");
                 if (inner.equals("Shreya")) {
+                    // without keyword breaks only breaks innermost outer loop!!
                     break outer;
                 }
             }
@@ -61,6 +62,60 @@ public class Loops {
         }
 
     }
+
+    private static void switchTest() {
+
+//        ere are the rules for a switch statement:
+//        1. Only String, byte, char, short, int, (and their wrapper classes Byte, Character, Short, and Integer), and enums can be used as types of a switch variable. (String is allowed only since Java 7).
+//        2. The case constants must be assignable to the switch variable. For example, if your switch variable is of class String, your case labels must use Strings as well.
+//        3. The switch variable must be big enough to hold all the case constants. For example, if the switch variable is of type char, then none of the case constants can be greater than 65535 because a char's range is from 0 to 65535.
+//        4.  All case labels should be COMPILE TIME CONSTANTS.
+//        5. No two of the case constant expressions associated with a switch statement may have the same value.
+//        6. At most one default label may be associated with the same switch statement.
+
+        short m = 5;
+        switch (m) {
+
+            case 5:
+
+
+                break;
+
+
+
+        }
+
+    }
+
+    private static void testLoop() {
+
+//        int[] arr = { 1, 2, 3, 4, 5, 6 };
+//        int counter = 0;
+//        for (int value : arr) {
+//            if (counter >= 5) {
+//                break;
+//            } else {
+//                continue;
+//            }
+//            if (value > 4) {
+//                arr[counter] = value + 1;
+//            }
+//            counter++;
+//        }
+//        System.out.println(arr[counter]);
+
+
+
+        // counter variable must be initialized
+
+        // both allowed
+
+        int i=10;
+        for ( ; i>0 ; i--) { }
+
+      //  for (int i=0, j=10; i<j; i++, --j) {;}
+    }
+
 
     private static void breakDemo() {
 

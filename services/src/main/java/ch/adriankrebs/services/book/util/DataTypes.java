@@ -29,8 +29,44 @@ public class DataTypes {
 //    char: char data type is a single 16-bit Unicode character.
 
 
+    private static void operators() {
+
+//        All operands of type byte, char or short are promoted AT LEAST to an int before performing mathematical operations. If one of the operands is larger than an int then the other one is promoted to the same type.
+//                Note that System.out.println((float)5/4); will print 1.25. If you remove the explicit cast (float), it will print 1.
+
+        System.out.println(1 + 2 + "3");// would print 33.
+//        operator + is left associative so evaluation of (1 + 2 + "3" ) is as follows: ( 1 + 2 ) + "3" -> 3 + "3" -> "33".
+
+        System.out.println(5/4); // --> promoted to int so it results in 1 not 1.25 --> with cast it would work
+        System.out.println((float)5/4); // --> promoted to int so it results in 1 not 1.25 --> with cast it would work
+
+
+//        The statement iA[i] = i = 30 ; will be processed as follows:
+//        iA[i] = i = 30; => iA[0] = i = 30 ;  =>  i = 30; iA[0] = i ; =>   iA[0] = 30 ;
+//
+//        Here is what JLS says on this:
+//        1 Evaluate Left-Hand Operand First
+//        2 Evaluate Operands before Operation
+//        3 Evaluation Respects Parentheses and Precedence
+//        4 Argument Lists are Evaluated Left-to-Right
+//
+//        For Arrays: First, the dimension expressions are evaluated, left-to-right. If any of the expression evaluations completes abruptly, the expressions to the right of it are not evaluated.
+
+        int i = 0 ;
+        int[] iA = {10, 20} ;
+        iA[i] = i = 30 ;
+        System.out.println(""+ iA[ 0 ] + " " + iA[ 1 ] + "  "+i) ;
+
+
+    }
+
     public static void main(String[] args) {
 
+
+
+
+        float f = 320;
+        char c = 310;
         // prints binary
         System.out.println(Integer.toBinaryString(0b100001011));
 
@@ -99,6 +135,9 @@ public class DataTypes {
 
 
         unboxing();
+
+
+        System.out.println("1" + 2 + 3);
 
     }
 
