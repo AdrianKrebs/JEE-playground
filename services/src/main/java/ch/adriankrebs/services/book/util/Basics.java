@@ -8,6 +8,13 @@ public class Basics {
 
 
     // https://docs.oracle.com/javase/tutorial/extra/certification/index.html
+    
+    
+    // class variables --> static instance variables
+    // instance variables
+    // local variables
+    
+    // variables may have the same name in another scope
 
 
     // declaration here
