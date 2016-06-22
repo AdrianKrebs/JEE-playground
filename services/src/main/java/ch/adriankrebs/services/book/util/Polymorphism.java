@@ -186,6 +186,7 @@ public class Polymorphism {
 
 //        Overloading of a method occurs when the name of more than one methods is exactly same but the parameter lists are different.
 
+//       Overloading also works when u just change the order of the arguments --> the JVM treats them as different method implementations
         private String overloadTestMethod(int size, int max) {
             return "lol java certification sucks :)";
         }
