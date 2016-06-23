@@ -56,8 +56,12 @@ public class Strings {
         sb2.append("Greetings");
 
 
+        // only available variable in String --> valid dot operator
+        System.out.println(String.CASE_INSENSITIVE_ORDER);
 
 
+        String test = "2";
+        test += "123";
 
     }
 
@@ -68,9 +72,13 @@ public class Strings {
 
         StringBuilder sb = new StringBuilder(palindrome);
 
+
         sb.reverse();  // reverse it
 
         System.out.println(sb);
+
+        sb.delete(0, sb.length());
+
     }
 
     private void substringing() {

@@ -36,6 +36,8 @@ public class DataTypes {
 
         System.out.println(1 + 2 + "3");// would print 33.
 //        operator + is left associative so evaluation of (1 + 2 + "3" ) is as follows: ( 1 + 2 ) + "3" -> 3 + "3" -> "33".
+        System.out.println("1" + 2 + 3); // = 123
+
 
         System.out.println(5/4); // --> promoted to int so it results in 1 not 1.25 --> with cast it would work
         System.out.println((float)5/4); // --> promoted to int so it results in 1 not 1.25 --> with cast it would work
@@ -63,7 +65,10 @@ public class DataTypes {
     public static void main(String[] args) {
 
 
+        boolean b = true||false;
+        boolean d = true|false;
 
+        long g = 012;
 
         float f = 320;
         char c = 310;
@@ -136,8 +141,25 @@ public class DataTypes {
 
         unboxing();
 
+        int i = 0;
+        String s = "";
 
-        System.out.println("1" + 2 + 3);
+        //s = null;
+        if ((s != null) | ( i==s.length())) {}
+        System.out.println("A");
+
+        //s = null;
+        if ((s == null) | ( i==s.length())) {}
+        System.out.println("B");
+
+        //s = null;
+        if ((s != null) || (i==s.length())) {}
+        System.out.println("C");
+
+        s = null;
+        if ((s == null) || (i==s.length())) {}
+        System.out.println("D");
+
 
     }
 

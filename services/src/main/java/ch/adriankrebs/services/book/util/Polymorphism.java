@@ -1,5 +1,9 @@
 package ch.adriankrebs.services.book.util;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileSystemException;
+
 /**
  * Created by Adrian on 5/21/2016.
  */
@@ -15,12 +19,29 @@ public class Polymorphism {
 
     static class Sub extends Super {
 
+        static int MAX;
+        static final String CLASS_GUID;
+
+        static {
+            MAX = 111;
+            CLASS_GUID = "XYZ123";
+        }
+
         public static void parseMeSub() {
 
         }
     }
 
+    static int x = 5;
+
     public static void main(String[] args) {
+            int x  = ( x=3 ) * 4;  // 1
+        System.out.println(x);
+
+
+        String conjunction = "1";
+
+        conjunction = conjunction + 1;
 
 
         //For example, a Dog  "IS A" Animal, so you don't need to cast it.
@@ -28,13 +49,14 @@ public class Polymorphism {
         // otherwise it will throw a ClassCastException.
 
 
+        Super test1,test231;
         Super s1 = new Super(); //1
         Sub s2 = new Sub();
         // works
 
         // i can either assign a sub to its superclass
         // or cast the sub to the superclass
-      //  s1 = s2;
+        //  s1 = s2;
         s2.parseMeSub();
         s2.parseMeSuper();
         s1.parseMeSuper();
@@ -43,9 +65,11 @@ public class Polymorphism {
 
         //throws classcastexception
         s1 = new Sub();
-       // s2 = (Sub) s1;
+        // s2 = (Sub) s1;
 
-        ((Sub)s1).parseMeSub();
+
+        // compiler trusts you that s1 contains a sub object. if not classcastexception. -> therefore use always instance of check
+        ((Sub) s1).parseMeSub();
 
 
         //----------------------------
@@ -55,8 +79,6 @@ public class Polymorphism {
         System.out.println(((A) c).i); //2 <--- cast it to A and u can actually access this variable beacause in A its public. for C its hidden
         //System.out.println(c.j); //3
         System.out.println(c.k);
-
-
 
 
         Z a = null;
@@ -75,10 +97,81 @@ public class Polymorphism {
 //        In this particular case, a NullPointerException will be thrown because a points to null and a null can be cast to any class.
 
 
+        InstanceofDemo.test();
+
+
+        /// SHADOWING __________________________ OVERRIDING
+
+
+        Car car = new SportsCar();
+        System.out.println(car.gearRatio + "  " + car.accelerate());
+
+        //Remember : variables are SHADOWED and methods are OVERRIDDEN.
+//        Which variable will be used depends on the class that the variable is declared of.
+//        Which method will be used depends on the actual class of
+//        the object that is referenced by the variable.
+
+        E o1 = new G();
+        F o2 = (F) o1;
+        System.out.println(o1.m1());
+        System.out.println(o2.i);
+    }
+
+    static class E {
+        int i = 10;
+
+
+        int m1() {
+            return i;
+        }
+    }
+
+    static class F extends E {
+        int i = 20;
+
+//    static method cannot be overridden by a non-static method and vice versa
+
+//    void testStatic() {
+//    }
+
+        int m1() {
+            return i;
+        }
+    }
+
+    static class G extends F {
+        int i = 30;
+
+        int m1() {
+            return i;
+        }
+    }
+
+
+    static class Car {
+        public int gearRatio = 8;
+
+        public String accelerate() {
+            return "Accelerate : Car";
+        }
+    }
+
+    static class SportsCar extends Car {
+        public int gearRatio = 9;
+
+        public String accelerate() {
+            return "Accelerate : SportsCar";
+        }
+
+        public void test() {
+
+        }
     }
 
     class Z {
-        public int getCode(){ return 2;}
+        public int getCode() {
+            return 2;
+        }
     }
 
     class ZZ extends Z {
@@ -87,9 +180,22 @@ public class Polymorphism {
     }
 
 
-
     //extend multiple interfaces from each other
     interface T1 {
+        int VALUE = 10;
+
+        //        An interface can have a static method but the method must have a body
+        static void testStatic() {
+
+        }
+        //An interface can redeclare a default method and provide a different implementation.
+
+        default void test() {
+
+        }
+
+        void m1();
+
     }
 
     interface T2 {
@@ -105,6 +211,26 @@ public class Polymorphism {
         public void m1(int x);
     }
 
+    class T4 implements T1, T2 {
+
+
+        // Having ambiguous fields or methods does not cause any
+        // problems by itself but referring to such fields/methods in an
+        // ambiguous way will cause a compile time error. So you cannot call :
+        // System.out.println(VALUE); because it will be ambiguous
+        // (there are two VALUE definitions).
+
+
+        //        tc.m1() is also fine because even though m1()
+        // is declared in both the interfaces, the definition to both resolves
+        // unambiguously to only one m1(), which is defined in TestClass.
+        @Override
+        public void m1() {
+            System.out.println(T1.VALUE);
+        }
+    }
+
+
 
 
     /*variables in inherited Classes
@@ -117,8 +243,11 @@ public class Polymorphism {
     static class A {
         public int i = 10;
         private int j = 20;
+        String courseName;
 
-
+        public A() {
+            this.courseName = "ORACLE";
+        }
     }
 
     static class B extends A {
@@ -130,12 +259,24 @@ public class Polymorphism {
             this.i = i;
         }
 
+        public void exceptionTest() throws IOException, MyException {
+
+        }
+
     }
 
     static class C extends B {
+
+        // overriden method can throw subclasses of exception thrown in parent
+        @Override
+        public void exceptionTest() throws FileNotFoundException, FileSystemException, MyException {
+
+        }
+
     }
 
-
+    private class MyException extends Exception {
+    }
 
 
 
@@ -186,8 +327,11 @@ public class Polymorphism {
 
 //        Overloading of a method occurs when the name of more than one methods is exactly same but the parameter lists are different.
 
-//       Overloading also works when u just change the order of the arguments --> the JVM treats them as different method implementations
+        //       Overloading also works when u just change the order of the arguments --> the JVM treats them as different method implementations
         private String overloadTestMethod(int size, int max) {
+            return "lol java certification sucks :)";
+        }
+        private String overloadTestMethod(Integer size, Integer max) {
             return "lol java certification sucks :)";
         }
 
@@ -199,17 +343,22 @@ public class Polymorphism {
             return "lol java certification sucks :)";
         }
 
+
         private int overloadTestMethod(int size, int test2, int test_2) {
             return 5;
         }
 
-        void perform_work(int time){ }
-        int  perform_work(int time, int speed){ return time*speed ;}
+        void perform_work(int time) {
+        }
+
+        int perform_work(int time, int speed) {
+            return time * speed;
+        }
     }
 
 
-    class InstanceofDemo {
-        public void test() {
+    static class InstanceofDemo {
+        public static void test() {
 
             Parent obj1 = new Parent();
             Parent obj2 = new Child();
@@ -229,10 +378,11 @@ public class Polymorphism {
         }
     }
 
-    class Parent {
+    static class Parent {
+
     }
 
-    class Child extends Parent implements MyInterface {
+    static class Child extends Parent implements MyInterface {
     }
 
     interface MyInterface {

@@ -23,9 +23,22 @@ public class Loops {
             //therefore this statement is excuted 10  times like we expect it
             System.out.println("counting up with i++" + i);
         }
+
+        i = 0;
+        for (; i < 5; i++) {
+            System.out.println("counting up with i++" + i);
+        }
+
+        i = 0;
+
+        for (; i < 5; ++i) {
+            System.out.println("counting up with ++i" + i);
+        }
+
     }
 
     public static void loopStatements() {
+
 
         String[] programmers = {"Paul", "Shreya", "Selvan", "Harry"};
 
@@ -114,6 +127,14 @@ public class Loops {
         for ( ; i>0 ; i--) { }
 
       //  for (int i=0, j=10; i<j; i++, --j) {;}
+
+        for ( i=0 ;       ; i++) break;
+
+        for (    ; i<5?false:true ;    );
+
+//        The code will compile without error and will terminate
+// without problems when run.
+
     }
 
 
@@ -166,6 +187,9 @@ public class Loops {
             foundIt = true;
             break test;
         }
+        int i = 10;
+
+        System.out.println(i);
         System.out.println(foundIt ? "Found it" : "Didn't find it");
     }
 
@@ -173,9 +197,9 @@ public class Loops {
 
     public static void main(String[] args) {
 
-        // twoWaysToIncrement();
+         twoWaysToIncrement();
 
-        loopStatements();
+        //loopStatements();
 
     }
 

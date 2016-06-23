@@ -6,14 +6,13 @@ package ch.adriankrebs.services.book.util;
 public class Basics {
 
 
-
     // https://docs.oracle.com/javase/tutorial/extra/certification/index.html
-    
-    
+
+
     // class variables --> static instance variables
     // instance variables
     // local variables
-    
+
     // variables may have the same name in another scope
 
 
@@ -24,7 +23,7 @@ public class Basics {
 
     // only allowed between two digits
     int underscore$test = 1_223;
-    double underscoreDouble = 1_2231.23424;
+    double underscoreDouble = 1_2231.23_424;
 
     public Basics(String[] test) {
 
@@ -51,6 +50,16 @@ public class Basics {
 
     }
 
+    private void implicitNarrowingOrWidening() {
+//        A narrowing primitive conversion may be used if all of the following conditions are satisfied:
+//
+//        1. The expression is a constant expression of type int.
+//
+//        2. The type of the variable is byte, short, or char.
+//
+//        3. The value of the expression (which is known at compile time, because it is a constant expression) is representable in the type of the variabl
+
+    }
 
 
 //    the only difference is that the prefix version (++result) evaluates to the incremented value, whereas the postfix version (result++) evaluates to the original value
@@ -71,8 +80,6 @@ public class Basics {
         System.out.println(i);
 
     }
-
-
 
 
     private void forLoopWithoutBraces() {
@@ -148,14 +155,32 @@ public class Basics {
         System.gc();
 
 
+
+
+
+    }
+    public Object getObject(Object a) //0
+    {
+
+        // b is never garbage collected in this method!!!!!!!!!!!
+        Object b = new Object();  //XXX
+
+        Object c, d = new Object(); //1
+        c = b; //2
+        b = a = null; //3
+        return c; //4
     }
 
     private void testImports() {
         // * does not import classes in sub-packages. just all classes in the same package
 
-     //   Refer to the member by its fully qualified name
-      //  Import the package member
-       // Import the member's entire package
+//        This is required because Y is accessing class X. static import of LOGICID is NOT
+// required because Y is accessing LOGICID through X ( X.LOGICID). Had it been just System.out.println(LOGICID),
+// only one import statement: import static com.foo.X.*; would have worked.
+
+        //   Refer to the member by its fully qualified name
+        //  Import the package member
+        // Import the member's entire package
 
 //        graphics.Rectangle myRect = new graphics.Rectangle();
 //        import graphics.Rectangle;
@@ -201,7 +226,6 @@ public class Basics {
         String test;
 
 
-
         @Override
         protected void finalize() throws Throwable {
             super.finalize();
@@ -218,6 +242,15 @@ public class Basics {
         }
     }
 
+    public static void main(String[] args) {
+
+    }
+}
+
+
+
+
+
     /* access modifiers in Java
     ---------------------------
     Access Levels
@@ -233,4 +266,4 @@ private           Y       N       N          N
 
 
 
-}
+
