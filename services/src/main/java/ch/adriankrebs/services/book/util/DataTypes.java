@@ -161,6 +161,16 @@ public class DataTypes {
         System.out.println("D");
 
 
+
+
+        int [] [] nir = new int [2] [3];
+
+        // length of first dimension
+        System.out.println(nir.length);
+        // length of first dimension
+        System.out.println(nir[1].length);
+
+
     }
 
 
