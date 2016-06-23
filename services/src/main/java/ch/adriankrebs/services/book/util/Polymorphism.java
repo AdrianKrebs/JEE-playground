@@ -52,6 +52,7 @@ public class Polymorphism {
         Super test1,test231;
         Super s1 = new Super(); //1
         Sub s2 = new Sub();
+
         // works
 
         // i can either assign a sub to its superclass
@@ -361,6 +362,7 @@ public class Polymorphism {
         public static void test() {
 
             Parent obj1 = new Parent();
+
             Parent obj2 = new Child();
 
             System.out.println("obj1 instanceof Parent: "
@@ -375,10 +377,42 @@ public class Polymorphism {
                     + (obj2 instanceof Child));
             System.out.println("obj2 instanceof MyInterface: "
                     + (obj2 instanceof MyInterface));
+
+
+            Parent obj3 = new Parent();
+
+            MyOtherInterface i = (MyOtherInterface)obj2;
+
+            // assuming obj1 is a parent object
+
+            //obj3 = (Child)i;
+
+            obj3 = (Child)(MyOtherInterface) obj2;
+
+
+
+
         }
     }
 
-    static class Parent {
+    interface MyOtherInterface {
+        // variables in interfaces are always public static final
+        // methods are always public
+        int test = 0;
+
+    }
+
+
+    static class Parent implements MyOtherInterface{
+        public static void main(String[] args) {
+            Parent p = new Parent();
+
+            int i = p.test;
+
+            // works because its in same class as the Interface is implemented
+            i = test;
+
+        }
 
     }
 
