@@ -6,7 +6,13 @@ package ch.adriankrebs.services.book.util;
 public class Basics {
 
 
+    // ---------------- Linksammlung ---------------------------------
+    
     // https://docs.oracle.com/javase/tutorial/extra/certification/index.html
+    
+    // http://www.java-certificate.com/lessons/java-se-7-programmer-i-1z0-803/
+
+    // ----------------------------------------------------------------
 
 
     // class variables --> static instance variables
