@@ -1,5 +1,8 @@
 package ch.adriankrebs.services.book.util.ExercisesBasics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShadowTest {
 
 
@@ -9,7 +12,7 @@ public class ShadowTest {
 
     class FirstLevel {
 
-        public int x = 1;
+        private int x = 1;
 
         void methodInFirstLevel(int x) {
             System.out.println("x = " + x);
@@ -18,12 +21,14 @@ public class ShadowTest {
         }
     }
 
+
     public static void main(String... args) {
         ShadowTest st = new ShadowTest();
         ShadowTest.FirstLevel fl = st.new FirstLevel();
         fl.methodInFirstLevel(23);
         ATest ct = new ATest();
         System.out.print(ct.parse("333"));
+
     }
 
 
@@ -68,4 +73,91 @@ class ATest {
     }
 
 }
+
+
+class A{
+    private int i = 10;
+    public void  f(){}
+    public void g(){}
+}
+
+class B extends A{
+    public int i = 20;
+    public void g(){}
+}
+
+ class C{
+
+     C() {
+         A a = new A();//1
+         B b = new B();//2
+         A a2 = new B();
+
+         a2.f();
+        b.i = 10;
+
+         // remember __> method ---> object ---> VARIABLE --> CLASS --> i not accessable in A
+     }
+}
+
+class A2{
+    final int fi = 10;
+}
+class B2 extends A2{
+    public void test() {
+
+    }
+    int fi = 15;
+    public static void main(String[] args){
+        B2 b = new B2();
+
+        b.fi = 20;
+        System.out.println(b.fi);
+        new B2().test();
+        System.out.println(  (  (A2) b  ).fi  );
+    }
+}
+
+ class TestClass{
+    public static void main(String[] args){  new TestClass().sayHello(); }   //1
+  //  public static void sayHello(){ System.out.println("Static Hello World"); }  //2
+   public void sayHello() { System.out.println("Hello World "); }  //3
+}
+
+class A3{
+    public A3() {} // A1
+    public A3(String s) {  this();  System.out.println("A :"+s);  }  // A2
+}
+
+class B3 extends A3{
+    ArrayList test;
+    public static void main(String[] args) {
+
+        System.out.println(getMsg((char)10));
+        List al = new ArrayList(); //1
+        al.add(111); //2
+        System.out.println(al.get(al.size()));  //3
+
+    }
+
+    public static String getMsg(char x){
+        System.out.println("char is "+x);
+        String msg = "Input value must be ";
+       msg = msg.concat("smaller than X");
+        msg.replace('X', x);
+        String rest = " and larger than 0";
+        msg.concat(rest);
+        return msg;
+    }
+    public int B3(String s) {  System.out.println("B :"+s);  return 0; } // B1
+}
+class C3 extends B3{
+    private C3(){ super(); } // C1
+    public C3(String s){  this();  System.out.println("C :"+s);  } // C2
+    public C3(int i){} // C3
+
+
+}
+
+
 

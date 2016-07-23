@@ -55,13 +55,68 @@ before the derived class exceptions. An attempt to do this will result in compil
         m1(3);
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
 
-        try {
-            m();
-        } catch (Exception e) {
+        int amount = 100, seed = 6;
+        switch( luckyNumber(6) ){
+            case 3: amount = amount * 2;
+            case 7: amount = amount * 2;
+            case 6: amount = amount + amount;
+            default :
         }
-        System.out.println(s);
+        System.out.println(amount);
+
+        testMethod();
+
+//        try {
+//            m();
+//        } finally {
+//
+//        }
+//        System.out.println(s);
+    }
+
+    private static void testMethod() throws Exception{
+        try{
+            amethod();
+            System.out.println("try ");
+        }
+        catch(Exception e){
+            System.out.print("catch ");
+        }
+        finally   {
+            System.out.print("finally ");
+        }
+        System.out.print("out ");
+    }
+    public static void amethod(){ throw new NullPointerException();}
+
+
+
+
+    //
+//    When you pass 6 to luckyNumber(), if(seed%2 == 0) throw new Exception("No Even no."); is executed and the exception is caught by the catch block where it tries to return 3; But as there is a finally associated with the try/catch block, it is executed before anything is returned. Now, as finally has return 7;, this value supersedes 3.
+//    In fact, this method will always return 7 if seed <= 10.
+//
+//    Now, in the switch there is no break statement. So both -
+//            case 7: amount = amount * 2;
+//    and
+//    case 6: amount = amount + amount;
+//    are executed. so the final amount becomes 400.
+
+    public static int luckyNumber(int seed){
+        if(seed > 10) return seed%10;
+        int x = 0;
+        try{
+            if(seed%2 == 0) throw new Exception("No Even no.");
+            else return x;
+        }
+        catch(Exception e){
+            return 3;
+        }
+        finally{
+            return 7;
+        }
     }
 
 

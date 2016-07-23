@@ -8,6 +8,9 @@ public class Strings {
 
     public static void main(String[] args) {
 
+        new StringBuilder("world").insert(0, "hello ").toString();
+
+        System.out.println("hello world".compareTo("Hello world") < 0);
 
         final String FPATH = "/home/user/index.html";
         Filename myHomePage = new Filename(FPATH, '/', '.');
@@ -88,6 +91,17 @@ public class Strings {
         String anotherPalindrome = "Niagara. O roar again!";
         String roar = anotherPalindrome.substring(11, 15);
 
+    }
+
+    private void comparing() {
+
+        // will result in false
+//        Notice that the Strings differ at the first position.
+// The value returned by compareTo is (Unicode value of the left hand side - Unicode value of the right hand side).
+//
+//        Although not required for the exam, it is good to know that for English alphabets, the unicode value of
+// any lower case letter is always 32 more than the unicode value of the same letter in upper case. So, 'a' - 'A' or 'h' - 'H' is 32.
+        System.out.println("hello world".compareTo("Hello world") < 0);
     }
 
 

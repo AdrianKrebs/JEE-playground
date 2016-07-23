@@ -32,12 +32,9 @@ package ch.adriankrebs.services.book.util.ExercisesBasics.shared;
  */
 
 public class Utilities {
-    // set DEBUG = false and compile to stop debug messages
-    final static boolean DEBUG = true;
-
-    public static void printMsg(String msg) {
-        if (DEBUG) {
-            System.out.println(msg);
-        }
+   // static int x = 5;
+    public static void main(String[] args){
+        int x  = ( x=3 ) * 4;  // 1
+        System.out.println(x);
     }
 }

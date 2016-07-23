@@ -31,8 +31,6 @@ package ch.adriankrebs.services.book.util.ExercisesBasics.client;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import ch.adriankrebs.services.book.util.ExercisesBasics.shared.*;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -53,7 +51,7 @@ public class Client extends Thread {
 
         PrintStream out = null;
 
-        Utilities.printMsg("creating output stream");
+      //  Utilities.printMsg("creating output stream");
 
         try {
             out = new PrintStream(clientSocket.getOutputStream());
@@ -62,7 +60,7 @@ public class Client extends Thread {
             System.exit(1);
         }
 
-        Utilities.printMsg("writing current date");
+       // Utilities.printMsg("writing current date");
 
         Date d = new Date();
         out.println(d);

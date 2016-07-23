@@ -2,6 +2,7 @@ package ch.adriankrebs.services.book.util;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystemException;
 
 /**
@@ -9,6 +10,7 @@ import java.nio.file.FileSystemException;
  */
 public class Polymorphism {
 
+    protected int testaccessor = 0;
 
     static class Super {
 
@@ -35,7 +37,7 @@ public class Polymorphism {
     static int x = 5;
 
     public static void main(String[] args) {
-            int x  = ( x=3 ) * 4;  // 1
+        int x = (x = 3) * 4;  // 1
         System.out.println(x);
 
 
@@ -43,13 +45,29 @@ public class Polymorphism {
 
         conjunction = conjunction + 1;
 
-
+        A a = new A();
+        B b = new B();
+        a = b;  // 1
+        b = (B) a;  // 2
+        a = (B) b; // 3
+        b = (B) a; // 4
         //For example, a Dog  "IS A" Animal, so you don't need to cast it.
         // But an Animal may not always be a Dog. So you need to cast it to make it compile and during the runtime the actual object referenced by animal should be a Dog
         // otherwise it will throw a ClassCastException.
 
 
-        Super test1,test231;
+      /*  Casting a base class to a subclass as in : b = (B) a; is also called as narrowing (as you are trying to narrow the base class object to a more specific class object) and needs explicit cast.
+        Casting a sub class to a base class as in: A a = b; is also called as widening and does not need any casting.
+
+                For example, consider two classes: Automobile and Car, where Car extends Automobile
+        Now, Automobile a = new Car(); is valid because a car is definitely an Automobile. So it does not need an explicit cast.
+
+        But, Car c = a; is not valid because 'a' is an Automobile and it may be a Car, a Truck, or a MotorCycle, so the programmer has to explicitly let the compiler know that at runtime 'a' will point to an object of class Car. Therefore, the programmer must use an explicit cast:
+        Car c = (Car) a;
+        */
+
+
+        Super test1, test231;
         Super s1 = new Super(); //1
         Sub s2 = new Sub();
 
@@ -82,10 +100,10 @@ public class Polymorphism {
         System.out.println(c.k);
 
 
-        Z a = null;
+        Z a2 = null;
         ZZ aa = null;
 
-        aa = (ZZ) a;
+        aa = (ZZ) a2;
 
 
 //        aa = (AA) a;
@@ -116,10 +134,13 @@ public class Polymorphism {
         F o2 = (F) o1;
         System.out.println(o1.m1());
         System.out.println(o2.i);
+
+        E test12 = new F();
+        System.out.println(test12.i);
     }
 
     static class E {
-        int i = 10;
+        private int i = 10;
 
 
         int m1() {
@@ -128,7 +149,7 @@ public class Polymorphism {
     }
 
     static class F extends E {
-        int i = 20;
+        public int i = 20;
 
 //    static method cannot be overridden by a non-static method and vice versa
 
@@ -214,6 +235,10 @@ public class Polymorphism {
 
     class T4 implements T1, T2 {
 
+        T4() {
+
+        }
+
 
         // Having ambiguous fields or methods does not cause any
         // problems by itself but referring to such fields/methods in an
@@ -226,10 +251,31 @@ public class Polymorphism {
         // is declared in both the interfaces, the definition to both resolves
         // unambiguously to only one m1(), which is defined in TestClass.
         @Override
+        // An overriding method can be made less restrictive than the overridden method
+
         public void m1() {
             System.out.println(T1.VALUE);
         }
+
+
+        private void exceptionNotInTryBlock() {
+            try {
+                m1();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("1");
+                throw new NullPointerException();// not catched!!!!
+            } catch (NullPointerException e) {
+                System.out.println("2");
+                return;
+            } catch (Exception e) {
+                System.out.println("3");
+            } finally {
+                System.out.println("4");
+            }
+            System.out.println("END");
+        }
     }
+
 
 
 
@@ -246,10 +292,22 @@ public class Polymorphism {
         private int j = 20;
         String courseName;
 
+        void test() {
+
+        }
+
         public A() {
             this.courseName = "ORACLE";
         }
     }
+
+    static abstract class AB extends A {
+
+        @Override
+        abstract void test();
+
+    }
+
 
     static class B extends A {
         private int i = 30; //1
@@ -266,6 +324,24 @@ public class Polymorphism {
 
     }
 
+    static class X {
+        B getB() {
+            return new B();
+        }
+    }
+
+    static class Y extends X {
+
+        //Covariant returns are allowed in Java 1.5, which means that an overriding method can change the return type of the overridden method to a subclass of the original return type.
+        // Here, C is a subclass of B. So this is valid.
+        @Override
+        C getB() {
+            return new C();
+        }
+
+    }
+
+
     static class C extends B {
 
         // overriden method can throw subclasses of exception thrown in parent
@@ -276,9 +352,9 @@ public class Polymorphism {
 
     }
 
+
     private class MyException extends Exception {
     }
-
 
 
     /* native keyword in Java
@@ -299,12 +375,20 @@ public class Polymorphism {
 
     Method overriding means having two methods with the same arguments, but different implementations. One of them would exist in the parent class,
     while another will be in the derived, or child class. The @Override annotation, while not required, can be helpful to enforce proper overriding of a method at compile time.
+
+     To override a method in the subclass, the overriding method (i.e. the one in the subclass) MUST HAVE:
+    .same name
+    .same return type in case of primitives (a subclass is allowed for classes, this is also known as covariant return types).
+    .same type and order of parameters
+    .it may throw only those exceptions that are declared in the throws clause of the superclass's method or exceptions that are subclasses of the declared exceptions. It may also choose NOT to throw any exception.
+    The names of the parameter types do not matter. For example, void methodX(int i) is same as void methodX(int k)
+
      */
 
 
     static class OverrideParent {
 
-        public String overrideTestMethod(int size) {
+        Object overrideTestMethod(int size) throws IOException {
 
             return "lol java certification sucks :)";
         }
@@ -314,7 +398,7 @@ public class Polymorphism {
 
         // you did that in the migration project to prevent migration data from validation. So you override the validate method with a new one which has a empty body
         @Override
-        public String overrideTestMethod(int size) {
+        protected String overrideTestMethod (int size) throws FileNotFoundException, FileAlreadyExistsException{
             return "i just overide the parent method, i have the same arguments but a different implementation --> used in interfaces e.g";
         }
     }
@@ -332,6 +416,7 @@ public class Polymorphism {
         private String overloadTestMethod(int size, int max) {
             return "lol java certification sucks :)";
         }
+
         private String overloadTestMethod(Integer size, Integer max) {
             return "lol java certification sucks :)";
         }
@@ -381,15 +466,14 @@ public class Polymorphism {
 
             Parent obj3 = new Parent();
 
-            MyOtherInterface i = (MyOtherInterface)obj2;
+
+            MyOtherInterface i = (MyOtherInterface) obj2;
 
             // assuming obj1 is a parent object
 
             //obj3 = (Child)i;
 
-            obj3 = (Child)(MyOtherInterface) obj2;
-
-
+            obj3 = (Child) (MyOtherInterface) obj2;
 
 
         }
@@ -403,10 +487,13 @@ public class Polymorphism {
     }
 
 
-    static class Parent implements MyOtherInterface{
+    static class Parent implements MyOtherInterface {
+        int i;
+
         public static void main(String[] args) {
             Parent p = new Parent();
 
+            //this.i; // no this operator
             int i = p.test;
 
             // works because its in same class as the Interface is implemented
@@ -417,6 +504,12 @@ public class Polymorphism {
     }
 
     static class Child extends Parent implements MyInterface {
+
+
+        public void setI(int y) {
+            i = 22;
+        }
+
     }
 
     interface MyInterface {
@@ -453,5 +546,86 @@ public class Polymorphism {
 
     }
 
+    public void switchTest(byte x) {
+        switch (x) {
+            case 'b':   // 1
+            default:   // 2
+            case -2:    // 3
+            case 80:    // 4
+        }
 
+    }
 }
+
+interface Account {
+    public default String getId() {
+        return "0000";
+    }
+}
+
+interface PremiumAccount extends Account {
+    public String getId();
+}
+
+abstract class BankAccount implements PremiumAccount {
+    //    Since interface PremiumAccount redeclares getId method as abstract, the BankAccount class must either provide an implementation
+// for this method or be marked as abstract.
+//    In this case, making the class abstract will not help because of the statement - Account acct = new BankAccount();
+//    public static void main(String[] args) {
+//        Account acct = new BankAccount();
+//        System.out.println(acct.getId());
+//    }
+
+    public int getId(int i) {return 1;}
+}
+
+
+interface A4 {
+    default void hello() {
+    }
+}
+
+interface B4 extends A4 {
+    default void hello() {
+        // super.hello();    //This is NOT valid.
+        A4.super.hello();    //This is valid.
+    }
+}
+
+class TestClass4 implements B4 {
+    public void hello() {
+        // super.hello();//This is NOT valid.
+        // A4.super.hello(); //This is NOT valid because TestClass does not implement A directly.
+        B4.super.hello(); //This is valid.
+    }
+}
+
+
+class Automobile {
+}
+
+
+class Car extends Automobile {
+
+    public static void main(String[] args) {
+
+        Automobile auto = new Car();
+        Car car = new Car();
+
+
+        auto = car;
+        car = (Car) auto;
+
+    }
+}
+
+
+
+
+
+  /*  For example, consider two classes: Automobile and Car, where Car extends Automobile
+        Now, Automobile a = new Car(); is valid because a car is definitely an Automobile. So it does not need an explicit cast.
+
+        But, Car c = a; is not valid because 'a' is an Automobile and it may be a Car, a Truck, or a MotorCycle, so the programmer has to explicitly let the compiler know that at runtime 'a' will point to an object of class Car. Therefore, the programmer must use an explicit cast:
+        Car c = (Car) a;
+        */

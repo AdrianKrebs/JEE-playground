@@ -24,6 +24,22 @@ public class Loops {
             System.out.println("counting up with i++" + i);
         }
 
+//        --k>0 implies, decrement the value of k and then compare with 0. Therefore, the loop will only execute twice, printing 2 and 1.
+//
+//        Had it been k-->0, it would imply, first compare k with 0, and then decrement k. In this case, the loop would execute thrice, printing 2, 1, and 0.
+
+        int k = 2;
+        do{
+            System.out.println(k);
+        }while(--k>0);
+
+        int k2 = 2;
+        do{
+            System.out.println(k2);
+        }while(k2-->0);
+
+
+        // both the same
         i = 0;
         for (; i < 5; i++) {
             System.out.println("counting up with i++" + i);
@@ -96,6 +112,29 @@ public class Loops {
 
 
 
+        }
+
+        boolean b = false;
+        int i = 1;
+        do{
+            i++ ;
+        } while (b = !b);
+        System.out.println( i );
+
+        Float f = null;
+        f = Float.valueOf("12.3");
+        String s = f.toString();
+        int i2 = Integer.parseInt(s);
+        System.out.println("i = "+i2);
+
+    }
+
+    public void switchTest(byte x){
+        switch(x){
+            case 'b':   // 1
+            default :   // 2
+            case -2:    // 3
+            case 80:    // 4
         }
 
     }
@@ -193,14 +232,59 @@ public class Loops {
         System.out.println(foundIt ? "Found it" : "Didn't find it");
     }
 
+    private static void weirdoLoopConstructs() {
+
+        do { break ; } while (true) ;
+        switch (1) { default : break; }
+        for ( ; true ; ) break ;
+
+        // break outside switch or loop is NOT allowed
+       // if (true) { break ; }
+
+        // but this is
+
+        boolean b = false;
+        int i = 1;
+        do{
+            i++ ;
+        } while (b = !b);
+        System.out.println( i );
+
+        
+        label: if(true){
+            System.out.println("break label");
+            break label; //this is valid
+        }
+
+
+        for (;;) {
+            System.out.println("while tur");
+        }
+
+
+    }
+
+
+
 
 
     public static void main(String[] args) {
 
          twoWaysToIncrement();
+        breakDemo();
 
         //loopStatements();
-
+        test : for(int i = 0; i< 10; i++){
+            for (int j = 0; j< 10; j++){
+                if ( i+ j > 10 )  break test;
+            }
+            System.out.println( "hello");
+        }
     }
 
+
 }
+
+
+
+

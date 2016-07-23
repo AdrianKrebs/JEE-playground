@@ -2,6 +2,7 @@ package ch.adriankrebs.services.book.util;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ public class LoopsTest {
 
     }
 
+    @Ignore
     @Test
     public void twoWaysToIncrement() throws Exception {
 

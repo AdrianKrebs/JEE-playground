@@ -32,17 +32,17 @@ package ch.adriankrebs.services.book.util.ExercisesBasics.server;
  */
 
 import ch.adriankrebs.services.book.util.ExercisesBasics.client.Client;
-import ch.adriankrebs.services.book.util.ExercisesBasics.shared.Utilities;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server {
 
     public static void main(String args[]) {
         ServerSocket serverSocket = null;
 
-        Utilities.printMsg("creating server socket");
+      //  Utilities.printMsg("creating server socket");
 
         try {
             serverSocket = new ServerSocket(4444);
@@ -51,7 +51,7 @@ public class Server {
             System.exit(1);
         }
 
-        Utilities.printMsg("accepting client connections");
+    //    Utilities.printMsg("accepting client connections");
 
         while (true) {
             try {

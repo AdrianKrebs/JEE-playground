@@ -1,4 +1,4 @@
-package ch.adriankrebs.services.book.util;
+package ch.adriankrebs.services.book.util.ExercisesBasics;
 
 
 /*
@@ -32,11 +32,13 @@ package ch.adriankrebs.services.book.util;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import ch.adriankrebs.services.book.util.Polymorphism;
+
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ListOfNumbers {
+public class ListOfNumbers  extends Polymorphism {
     private List<Integer> list;
     private static final int SIZE = 10;
 
@@ -47,6 +49,7 @@ public class ListOfNumbers {
     }
     public void writeList() {
         PrintWriter out = null;
+        testaccessor = 2;
 
         try {
             System.out.println("Entering try statement");
