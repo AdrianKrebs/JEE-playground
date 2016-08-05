@@ -220,6 +220,14 @@ public class Polymorphism {
 
     }
 
+    abstract interface T123 {
+        // Interfaces are always abstract. They define the interface of a class,
+        // so they are only about public methods, regardless the language, I think.
+        public abstract void abstractInterface();
+
+    }
+
+
     interface T2 {
         int VALUE = 10;
 
@@ -233,12 +241,11 @@ public class Polymorphism {
         public void m1(int x);
     }
 
-    class T4 implements T1, T2 {
+    class T4 implements T1, T2, T123 {
 
         T4() {
-
+            // System.out.println(VALUE); not allowed since ambiguous
         }
-
 
         // Having ambiguous fields or methods does not cause any
         // problems by itself but referring to such fields/methods in an
@@ -273,6 +280,11 @@ public class Polymorphism {
                 System.out.println("4");
             }
             System.out.println("END");
+        }
+
+        @Override
+        public void abstractInterface() {
+
         }
     }
 
@@ -324,9 +336,14 @@ public class Polymorphism {
 
     }
 
-    static class X {
+    static class X extends AB {
         B getB() {
             return new B();
+        }
+
+        @Override
+        void test() {
+
         }
     }
 
@@ -398,7 +415,7 @@ public class Polymorphism {
 
         // you did that in the migration project to prevent migration data from validation. So you override the validate method with a new one which has a empty body
         @Override
-        protected String overrideTestMethod (int size) throws FileNotFoundException, FileAlreadyExistsException{
+        protected String overrideTestMethod(int size) throws FileNotFoundException, FileAlreadyExistsException {
             return "i just overide the parent method, i have the same arguments but a different implementation --> used in interfaces e.g";
         }
     }
@@ -576,7 +593,9 @@ abstract class BankAccount implements PremiumAccount {
 //        System.out.println(acct.getId());
 //    }
 
-    public int getId(int i) {return 1;}
+    public int getId(int i) {
+        return 1;
+    }
 }
 
 
@@ -619,8 +638,37 @@ class Car extends Automobile {
     }
 }
 
+// package privat --> default
+class InitializationTest {
+    static String staticString = "im gonna be initialized first -> static statements/blocks are first";
+    String nullTester;
+    static String initializerString;
+// private class only allowed as inner classes
 
 
+    public InitializationTest() {
+        System.out.println("hi all I'm the last one");
+    }
+
+
+    static void initTest() {
+        System.out.println(staticString);
+    }
+
+    {
+        System.out.println(nullTester = "second, instance blocks/statements are initialized  ");
+    }
+
+    static {
+        initTest();
+        System.out.println(initializerString = "second one");
+
+    }
+
+    public static void main(String[] args) {
+        new InitializationTest();
+    }
+}
 
 
   /*  For example, consider two classes: Automobile and Car, where Car extends Automobile

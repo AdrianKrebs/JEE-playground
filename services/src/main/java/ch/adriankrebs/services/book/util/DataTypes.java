@@ -70,6 +70,8 @@ public class DataTypes {
         int i = 0;
         int[] iA = {10, 20};
         iA[i] = i = 30;
+        byte positve = 126;
+        byte negatic = -128;
         System.out.println("" + iA[0] + " " + iA[1] + "  " + i);
     }
 
@@ -92,7 +94,19 @@ public class DataTypes {
         //  Chaining to use a value of a variable at the time of declaration is not allowed. Had b and c been already declared, it would have been valid. For example, the following is valid:
         //int a = b = c = 100;
 
-
+//        Min byte value   = -128
+//        Max byte value   = 127
+//        Min short value  = -32768
+//        Max short value  = 32767
+//        Min int value    = -2147483648
+//        Max int value    = 2147483647
+//        Min long value    = -9223372036854775808
+//        Max long value    = 9223372036854775807
+//        Min float value  = 1.4E-45
+//        Max float value  = 3.4028235E38
+//        Min double value = 4.9E-324
+//        Max double value = 1.7976931348623157E308
+       // float wayToBig = 34e4;
         int b = 0, cc = 0;
         int a = b = cc = 100;
         // Even the following is valid:
@@ -144,6 +158,9 @@ public class DataTypes {
         System.out.println(0x4_13);
 
         byte byteliteral = 0b1111111; // = 127
+
+
+        int octaltest = 01;
 
         // java uses two complement -> negative numbers are stored internally by toggeling all bits and adding 1
 
@@ -229,15 +246,20 @@ public class DataTypes {
 //        int i = Integer.parseInt(s); throws a NumberFormatException because 12.3 is not an integer.
 //        Thus, the catch block prints trouble : 12.3
 
+        // difference valueOf, parseInt
+        // parsing is always a String to --> int,float
+
+//        However, valueOf(String) returns a new Integer() object whereas parseInt(String) returns a primitive int.
+
+
         Float f = null;
-        try{
+        try {
             f = Float.valueOf("12.3");
             String s = f.toString();
             int i = Integer.parseInt(s);
-            System.out.println("i = "+i);
-        }
-        catch(Exception e){
-            System.out.println("trouble : "+f);
+            System.out.println("i = " + i);
+        } catch (Exception e) {
+            System.out.println("trouble : " + f);
         }
     }
 
@@ -261,7 +283,8 @@ public class DataTypes {
         arrayOrInt = 5;
 
 
-        int[] array6[] = new int[2][1];
+
+        int[] array6[] = new int[00][01];
 
 
         int[] array4[], array5[];

@@ -78,12 +78,20 @@ class ATest {
 class A{
     private int i = 10;
     public void  f(){}
+
+    private final void unoverritable() {
+
+    }
     public void g(){}
 }
 
 class B extends A{
     public int i = 20;
     public void g(){}
+
+    public final void unoverritable() {
+
+    }
 }
 
  class C{
@@ -94,6 +102,7 @@ class B extends A{
          A a2 = new B();
 
          a2.f();
+
         b.i = 10;
 
          // remember __> method ---> object ---> VARIABLE --> CLASS --> i not accessable in A

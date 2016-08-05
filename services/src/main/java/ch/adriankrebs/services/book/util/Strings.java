@@ -8,6 +8,9 @@ public class Strings {
 
     public static void main(String[] args) {
 
+        Strings str = new Strings();
+        str.reversing();
+
         new StringBuilder("world").insert(0, "hello ").toString();
 
         System.out.println("hello world".compareTo("Hello world") < 0);
@@ -70,6 +73,29 @@ public class Strings {
 
 
     private void reversing() {
+        /*
+              String Builder methods:
+              -------------------------------
+              setLength
+              ensureCapacity
+              reverse
+              append
+
+
+              StringBuilder is MUTABLE --> with append i.e
+
+
+
+
+
+
+*/
+
+
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("aaa").insert(1, "bb").insert(5, "ccc");
+        System.out.println(sb2);
+
 
         String palindrome = "Dot saw I was Tod";
 
@@ -77,10 +103,16 @@ public class Strings {
 
 
         sb.reverse();  // reverse it
-
+        sb.delete(0,2);
         System.out.println(sb);
-
+         // int test = palindrome.substring(6, 5).length(); throws outofbound exception
         sb.delete(0, sb.length());
+
+        StringBuilder numbers = new StringBuilder("0123456789");
+        numbers.delete(2, 8);
+        numbers.append(4);
+        numbers.append("-").insert(2, "+");
+        System.out.println(numbers);
 
     }
 

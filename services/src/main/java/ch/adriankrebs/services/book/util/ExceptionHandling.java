@@ -44,7 +44,7 @@ before the derived class exceptions. An attempt to do this will result in compil
 
     public static void m2() {
         //    Now, m2() throws an exception which is not caught by m2() so it is propagated back to m0(1, 2).
-// Since, within m0 method, the call to m2() is not wrapped in a try catch block, this exception further propagates up to m(). ( The next line in m0(1, 2), which is m1(2), is not executed ).
+        // Since, within m0 method, the call to m2() is not wrapped in a try catch block, this exception further propagates up to m(). ( The next line in m0(1, 2), which is m1(2), is not executed ).
 
         // because NullPointerException is an unchecked Exception we do not need to throw it up manually ---> check it
         throw new NullPointerException("aa");
@@ -55,9 +55,9 @@ before the derived class exceptions. An attempt to do this will result in compil
         m1(3);
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[])  {
 
-        int amount = 100, seed = 6;
+        /*int amount = 100, seed = 6;
         switch( luckyNumber(6) ){
             case 3: amount = amount * 2;
             case 7: amount = amount * 2;
@@ -66,7 +66,17 @@ before the derived class exceptions. An attempt to do this will result in compil
         }
         System.out.println(amount);
 
-        testMethod();
+        testMethod();*/
+
+        try {
+            RuntimeException tr = null;
+            // logical -> null pointer is thown as soon as thows clause is called
+            throw tr;
+        }
+        catch (Exception e){
+            System.out.println(e);
+
+        }
 
 //        try {
 //            m();
