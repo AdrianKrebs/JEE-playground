@@ -22,7 +22,7 @@ public class Basics {
     // variables may have the same name in another scope
 
 
-    // declaration here
+    // declarationAndComparing here
     String[] test; // works as i know it
     String test2[]; // works as well!!!
 
@@ -49,8 +49,18 @@ public class Basics {
 
         // ---- calling order
         /*First, static statements/blocks are called IN THE ORDER they are defined.
-                Next, instance initializer statements/blocks are called IN THE ORDER they are defined.
-                Finally, the constructor is called
+         Next, instance initializer statements/blocks are called IN THE ORDER they are defined.
+         Finally, the constructor is called
+
+         Not completely, what it means is that the Sub's static blocks are not executed until you access something that belongs to Sub class itself.
+         In this case, ID actually belongs to Super, so there is no need to load class Sub. But if you had something like static int SUB_ID defined in Sub,
+          and then if you access Sub.SUB_ID, the static block of Sub will be executed.
+
+        So the issue is not about object creation (because we are talking about static stuff not instance stuff) but about when is that class actually
+        required to be loaded.
+
+
+
                 */
 
 
@@ -165,10 +175,13 @@ public class Basics {
 
 
     }
+
     public Object getObject(Object a) //0
     {
 
         // b is never garbage collected in this method!!!!!!!!!!!
+//        t line 2, c is assigned the reference of b. i.e. c starts pointing to the
+// object created at //XXX. So even if at //3 b and a are set to null, the object is not without any reference.
         Object b = new Object();  //XXX
 
         Object c, d = new Object(); //1

@@ -53,8 +53,14 @@ public class DataTypes {
 
 
         System.out.println(5 / 4); // --> promoted to int so it results in 1 not 1.25 --> with cast it would work
-        System.out.println((float) 5 / 4); // --> promoted to int so it results in 1 not 1.25 --> with cast it would work
+        System.out.println((float) 5 / 4);
 
+//        In the case of i == f, value of i will be promoted to a float i.e. 5.0, and so it returns false.
+
+         float testComparing = 5.5f;
+        int testComparing2 = 5;
+
+        System.out.println(testComparing == testComparing2); // false
 
 //        The statement iA[i] = i = 30 ; will be processed as follows:
 //        iA[i] = i = 30; => iA[0] = i = 30 ;  =>  i = 30; iA[0] = i ; =>   iA[0] = 30 ;
@@ -65,8 +71,17 @@ public class DataTypes {
 //        3 Evaluation Respects Parentheses and Precedence
 //        4 Argument Lists are Evaluated Left-to-Right
 //
-//        For Arrays: First, the dimension expressions are evaluated, left-to-right. If any of the expression evaluations completes abruptly, the expressions to the right of it are not evaluated.
 
+        // prints out 14, 25
+        //First, a's value of 10 is kept aside and (a=4) is evaluated
+        int a = 10;
+        int b = 20;
+        a += (a = 4);
+        b = b + (b = 5);
+        System.out.println(a + ",  " + b);
+
+
+//        For Arrays: First, the dimension expressions are evaluated, left-to-right. If any of the expression evaluations completes abruptly, the expressions to the right of it are not evaluated.
         int i = 0;
         int[] iA = {10, 20};
         iA[i] = i = 30;
@@ -75,11 +90,50 @@ public class DataTypes {
         System.out.println("" + iA[0] + " " + iA[1] + "  " + i);
     }
 
-    public static void declaration() {
+    public static void declarationAndComparing() {
+        int k = 1;
+        k += 3 + ++k;
+        int k2 = 1;
+        k2 = k2 + 3 + 2;
+        int k3 = 1;
 
+
+        k3 += 3 + (k3 =1) + k3 + 1;
+
+        System.out.printf("should be 7 :"+k3);
+        if (k2 == k) {
+            System.out.println("equal");
+        }
+        System.out.println("value of k : "+k);
+
+        // 6 --_> since 1 = 1 + 3 + 2
+        // k is saved asside
 
         boolean bb = true || false;
         boolean db = true | false;
+        Boolean b = new Boolean("yes"); // false
+        boolean bbbb = Boolean.parseBoolean("true"); // -----> parse boolean returns int!
+
+        /*
+        You need to remember the following points about Boolean:
+
+1. Boolean class has two constructors - Boolean(String) and Boolean(boolean)
+The String constructor allocates a Boolean object representing the value true if the string argument is not null and is equal,
+ ignoring case, to the string "true". Otherwise, allocate a Boolean object representing the value false. Examples: new Boolean("True")
+  produces a Boolean object that represents true. new Boolean("yes") produces a Boolean object that represents false.
+
+The boolean constructor is self explanatory.
+
+2. Boolean class has two static helper methods for creating booleans - parseBoolean and valueOf.
+Boolean.parseBoolean(String ) method returns a primitive boolean and not a Boolean object (Note - Same is with the case with other parseXXX methods such as Integer.parseInt - they return primitives and not objects). The boolean returned represents the value true if the string argument is not null and is equal, ignoring case, to the string "true".
+
+Boolean.valueOf(String ) and its overloaded Boolean.valueOf(boolean ) version, on the other hand, work similarly but return a reference to either Boolean.TRUE or Boolean.FALSE wrapper objects. Observe that they dont create a new Boolean object but just return the static constants TRUE or FALSE defined in Boolean class.
+
+3. When you use the equality operator ( == ) with booleans, if exactly one of the operands is a Boolean wrapper, it is first unboxed into a boolean primitive and then the two are compared (JLS 15.21.2). If both are Boolean wrappers, then their references are compared just like in the case of other objects.
+Thus, new Boolean("true") == new Boolean("true") is false, but new Boolean("true") == Boolean.parseBoolean("true") is true.
+
+
+         */
 
         long g = 012;
 
@@ -91,7 +145,13 @@ public class DataTypes {
         boolean b1, b2, b3, b4, b5, b6; // line 1
         b1 = b2 = b3 = true; // allowed because same type
 
-        //  Chaining to use a value of a variable at the time of declaration is not allowed. Had b and c been already declared, it would have been valid. For example, the following is valid:
+        int explicitCast = (int) longliteral;
+
+//        Note that Java can only accept wider types. An int can be passed to a method taking a
+//        long parameter. Java will not automatically convert to a narrower type. If you want to pass
+//        a long to a method taking an int parameter, you have to add a cast to explicitly say narrowing is okay.
+
+        //  Chaining to use a value of a variable at the time of declarationAndComparing is not allowed. Had b and c been already declared, it would have been valid. For example, the following is valid:
         //int a = b = c = 100;
 
 //        Min byte value   = -128
@@ -106,14 +166,73 @@ public class DataTypes {
 //        Max float value  = 3.4028235E38
 //        Min double value = 4.9E-324
 //        Max double value = 1.7976931348623157E308
-       // float wayToBig = 34e4;
-        int b = 0, cc = 0;
-        int a = b = cc = 100;
+        // float wayToBig = 34e4;
+        int b23 = 0, cc = 0;
+        int a = b23 = cc = 100;
         // Even the following is valid:
         int bbb, ccc;  //Not initializing b and c here.
         int aaa = bbb = ccc = 100; //declaring a and initializing c, b, and a at the same time.
 
+
+        char test = 'a';
+        final short lala = 12;
+
+        //test = lala; // short has different length that char --> so adding final works --> you tell the compiler : I know what im doig
+
+
+        /*
+
+        So while they are both 2-byte long, they use the sixteenth bit for different purposes.
+
+        The range of the char type is 0 to 2^16 - 1 (0 to 65535).
+
+        The short range is -2^15 to 2^15 - 1 (−32,768 to 32,767).
+         */
+        for (int i = 0; i < 3; i++) {
+            System.out.println(test++); // a, b, c
+        }
+
+
+        int octTest = 0xA;
+        System.out.println(octTest);
+
+        // comparing all primitves works
+
+
+
+        byte b9 = 1;
+        char c9 = 1;
+        short s9 = 1;
+        int i9 = 1;
+        short x = 3;
+        x += 4.6;
+
+
+//        c9 = c9 + b9; --> returns int // ---> see point 3
+
+        /*
+
+        1. Anything bigger than an int can NEVER be assigned to an int or anything smaller than int ( byte, char, or short) without explicit cast.
+        2. CONSTANT values up to int can be assigned (without cast) to variables of lesser size ( for example, short to byte) if the value is representable by the variable.( that is, if it fits into the size of the variable).
+        3. operands of mathematical operators are ALWAYS promoted to AT LEAST int. (i.e. for byte * byte both bytes will be first promoted to int.) and the return value will be AT LEAST int.
+        4. Compound assignment operators ( +=, *= etc)  have strange ways so read this carefully:
+
+        A compound assignment expression of the form E1 op= E2 is equivalent to E1 = (T)((E1) op (E2)), where T is the type of E1, except that E1 is evaluated only once.
+        Note that the implied cast to type T may be either an identity conversion or a narrowing primitive conversion.
+        For example, the following code is correct:
+
+        short x = 3;
+        x += 4.6;
+
+        and results in x having the value 7 because it is equivalent to:
+
+        short x = 3;
+        x = (short)(x + 4.6);
+         */
+
+
     }
+
 
     public static void bitsAndBytes() {
 
@@ -170,7 +289,7 @@ public class DataTypes {
     public static void main(String[] args) {
         // Literals
         arrays();
-
+        declarationAndComparing();
         unboxing();
 
     }
@@ -250,6 +369,7 @@ public class DataTypes {
         // parsing is always a String to --> int,float
 
 //        However, valueOf(String) returns a new Integer() object whereas parseInt(String) returns a primitive int.
+        // same with Booolean.valueOf --> Boolean --> Boolean.parseBoolean --> boolean
 
 
         Float f = null;
@@ -281,7 +401,6 @@ public class DataTypes {
         // preferred way is int [] testArray; --> with no side effect -> testArray,testArray2 will result in two arrays instead of array and int
 
         arrayOrInt = 5;
-
 
 
         int[] array6[] = new int[00][01];

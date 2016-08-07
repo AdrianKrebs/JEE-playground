@@ -3,12 +3,11 @@ package ch.adriankrebs.services.book.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.FileSystemException;
 
 /**
  * Created by Adrian on 5/21/2016.
  */
-public class Polymorphism {
+public class ClassDesign {
 
     protected int testaccessor = 0;
 
@@ -95,6 +94,11 @@ public class Polymorphism {
 
 
         C c = new C();
+        c.exceptionTest(); // no catch needed
+
+        B b12 = new C();
+        // b12.exceptionTest(); throws or catch needed because exceptions depend on class not object
+
         System.out.println(((A) c).i); //2 <--- cast it to A and u can actually access this variable beacause in A its public. for C its hidden
         //System.out.println(c.j); //3
         System.out.println(c.k);
@@ -360,10 +364,11 @@ public class Polymorphism {
 
 
     static class C extends B {
-
         // overriden method can throw subclasses of exception thrown in parent
+//  You are looking at the declarationAndComparing of the method in the class of the reference (not of actual object) to
+// determine whether you have to put the call in try/catch or not (Or declare the throws clause of the caller appropriately).
         @Override
-        public void exceptionTest() throws FileNotFoundException, FileSystemException, MyException {
+        public void exceptionTest()  {
 
         }
 
@@ -419,6 +424,53 @@ public class Polymorphism {
             return "i just overide the parent method, i have the same arguments but a different implementation --> used in interfaces e.g";
         }
     }
+
+
+    private static class TestPassingNull {
+        public void method(Object o) {
+            System.out.println("Object Version");
+        }
+
+        public void method(java.io.FileNotFoundException s) {
+            System.out.println("java.io.FileNotFoundException Version");
+        }
+
+        public void method(java.io.IOException s) {
+            System.out.println("IOException Version");
+        }
+
+        public static void main(String args[]) {
+            TestPassingNull tc = new TestPassingNull();
+            tc.method(null);
+        }
+    }
+
+    /*
+    The reason is quite simple, the most specific method depending upon the argument is called. Here, null can be passed to all the 3 methods but FileNotFoundException class is the subclass of IOException which in turn is the subclass of Object. So, FileNotFoundException class is the most specific class. So, this method is called.
+Had there been two most specific methods, it would not even compile as the compiler will not be able to determine which method to call. For example:
+
+public class TestClass{
+   public void method(Object o){
+      System.out.println("Object Version");
+   }
+   public void method(String s){
+      System.out.println("String Version");
+   }
+   public void method(StringBuffer s){
+      System.out.println("StringBuffer Version");
+   }
+   public static void main(String args[]){
+      TestClass tc = new TestClass();
+      tc.method(null);
+   }
+}
+
+
+Here, null can be passed as both StringBuffer and String and none is more specific than the other. So, it will not compile.
+
+
+
+     */
 
     static class Overload {
 
@@ -630,6 +682,26 @@ class Car extends Automobile {
 
         Automobile auto = new Car();
         Car car = new Car();
+//        Once the object has been assigned a new reference type, only the methods and variables
+//        available to that reference type are callable on the object without an explicit cast.
+
+        /*
+        Now, the rule is that if you have a container that is known to contain A, then the elements that you take out from it are only known to be of type A. For example, if you have an ArrayList of Cars (ArrayList<Car>) and if you take out an element from it, you know for sure that it will be a Car. It could be also be an SUV but you are not sure about that.
+        Therefore, you cannot assign that element to a variable of type SUV without a cast.
+        But since a Car is-a Vehicle, you can assign that element to a variable of type Vehicle.
+
+
+
+         */
+
+        car = (Car)(Automobile) car;
+
+      //  This won't compile. By casting b1 to B, you are
+        // telling the compiler that b1 points to an object
+        // of class B. But you are then trying to assign this reference to b1, which is of class B1.
+        // Compiler will complain against this assignment because there is no guarantee that an object of class B will also be of class B1.
+        // To be able to assign an object of class B to a reference of class B1, you need to confirm to the compiler that the reference will actually point to an object of class B1.
+        // Therefore, another cast is needed. i.e. b1 = (B1) (B) b1;
 
 
         auto = car;

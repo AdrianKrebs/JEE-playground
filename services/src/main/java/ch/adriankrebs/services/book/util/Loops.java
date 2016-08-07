@@ -24,7 +24,7 @@ public class Loops {
             System.out.println("counting up with i++" + i);
         }
 
-//        --k>0 implies, decrement the value of k and then compare with 0. Therefore, the loop will only execute twice, printing 2 and 1.
+//        --k>0 implies, decrement the value of k and then compare with 0. Therefore, the loop will only  execute twice, printing 2 and 1.
 //
 //        Had it been k-->0, it would imply, first compare k with 0, and then decrement k. In this case, the loop would execute thrice, printing 2, 1, and 0.
 
@@ -270,15 +270,40 @@ public class Loops {
 
     public static void main(String[] args) {
 
-         twoWaysToIncrement();
+        twoWaysToIncrement();
         breakDemo();
 
         //loopStatements();
-        test : for(int i = 0; i< 10; i++){
-            for (int j = 0; j< 10; j++){
-                if ( i+ j > 10 )  break test;
+        test:
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (i + j > 10) break test;
             }
-            System.out.println( "hello");
+            System.out.println("hello");
+        }
+
+        char i;
+        LOOP:
+        for (i = 0; i < 5; i++) {
+            switch (i++) {
+                case '0':
+                    System.out.println("A");
+                case 1:
+                    System.out.println("B");
+                    break LOOP;
+                case 2:
+                    System.out.println("C");
+                    break;
+                case 3:
+                    System.out.println("D");
+                    break;
+                case 4:
+                    System.out.println("E");
+                case 'E':
+                    System.out.println("F");
+                default:
+                    System.out.println(i);
+            }
         }
     }
 

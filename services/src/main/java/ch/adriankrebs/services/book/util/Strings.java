@@ -114,6 +114,17 @@ public class Strings {
         numbers.append("-").insert(2, "+");
         System.out.println(numbers);
 
+        // second argument is offset ---> so 0 to 8 of  ddd-ddd-ddd is appended, no index available unlike insert
+        System.out.println(new StringBuilder("xxxx").append("ddd-ddd-ddd", 0, 8).toString());
+//        This will return xxxxddd-ddd-.
+
+
+
+        // correct --> first is index, second offset, third start
+        System.out.println(new StringBuilder("xxxx").insert(0, "ddd-ddd-ddd", 0, 8).toString());
+
+
+
     }
 
     private void substringing() {
@@ -254,6 +265,19 @@ public class Strings {
                 System.out.println("They are NOT anagrams!");
             }
             System.out.println();
+
+           boolean b = "String".replace('g','g')=="String"; // ---> true
+            //replace returns the same object if there is no change.
+
+
+//            Object a, b, c ;
+//            a = new String("A");
+//            b = new String("B");
+//            c = a;
+//            a = b;
+//            System.out.println(""+c);
+
+            // A since String overrides toString
         }
     }
 

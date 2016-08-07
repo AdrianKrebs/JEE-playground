@@ -3,6 +3,7 @@ package ch.adriankrebs.services.book.util;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAdjusters;
 
 /**
  * Created by Adrian on 8/5/2016.
@@ -42,11 +43,11 @@ public class DateTime {
 
         LocalDate date123 = LocalDate.of(2020, Month.JANUARY, 20);
         LocalTime time = LocalTime.of(11, 12, 34);
-        LocalDateTime dateTime = LocalDateTime.of(date, time);System.out.println(date
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        System.out.println(date
                 .format(DateTimeFormatter.ISO_LOCAL_DATE));
         System.out.println(time.format(DateTimeFormatter.ISO_LOCAL_TIME));
         System.out.println(dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-
 
 
         DateTimeFormatter shortDateTime =
@@ -83,9 +84,43 @@ public class DateTime {
 
         LocalDate dateTest = LocalDate.parse("2018-04-30", DateTimeFormatter.ISO_LOCAL_DATE);
         // dateTest.plusHours(2); // doesnt work sincce date has no time
+
+//        Period is used to manipulate dates in terms of days, months, and years,
+// while Duration is used to manipulate dates in terms of hours, minutes, and seconds.
+
+//        Durations and periods differ in their treatment of daylight savings time when added to ZonedDateTime.
+// A Duration will add an exact number of seconds, thus a duration of one day is always exactly 24 hours.
+// By contrast, a Period will add a conceptual day, trying to maintain the local time.
+
+        LocalDateTime ld = LocalDateTime.of(2015, Month.OCTOBER, 31, 10, 0);
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(ld, ZoneId.of("US/Eastern"));
+        zonedDateTime = zonedDateTime.plus(Duration.ofDays(1));
+        System.out.println(zonedDateTime);
+
+        zonedDateTime = ZonedDateTime.of(ld, ZoneId.of("US/Eastern"));
+        zonedDateTime = zonedDateTime.plus(Period.ofDays(1));
+        System.out.println(zonedDateTime);
+
+
+        //adjustInto
+        // strategy pattern
+        System.out.println(LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY)));
+        System.out.println(TemporalAdjusters.next(DayOfWeek.TUESDAY).adjustInto(LocalDate.now()));
+
+        /*
+
+Adjusters are a key tool for modifying temporal objects. They exist to externalize the process of adjustment, permitting different approaches, as per the strategy design pattern.
+ Examples might be an adjuster that sets the date avoiding weekends, or one that sets the date to the last day of the month.
+There are two equivalent ways of using a TemporalAdjuster. The first is to invoke the method on the interface directly. The second is to use Temporal.with(TemporalAdjuster):
+   // these two lines are equivalent, but the second approach is recommended
+   temporal = thisAdjuster.adjustInto(temporal);
+   temporal = temporal.with(thisAdjuster);
+
+
+         */
+
     }
-
-
 
 
 }
