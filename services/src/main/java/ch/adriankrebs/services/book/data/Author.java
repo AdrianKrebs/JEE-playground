@@ -76,7 +76,27 @@ public class Author implements java.io.Serializable {
 	public void setBooksWrittenByAuthor(Collection<Book> booksWrittenByAuthor) {
 		this.booksWrittenByAuthor = booksWrittenByAuthor;
 	}
-	
-	
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Author author = (Author) o;
+
+		if (id != null ? !id.equals(author.id) : author.id != null) return false;
+		if (firstname != null ? !firstname.equals(author.firstname) : author.firstname != null) return false;
+		if (lastname != null ? !lastname.equals(author.lastname) : author.lastname != null) return false;
+		return booksWrittenByAuthor != null ? booksWrittenByAuthor.equals(author.booksWrittenByAuthor) : author.booksWrittenByAuthor == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+		result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+		result = 31 * result + (booksWrittenByAuthor != null ? booksWrittenByAuthor.hashCode() : 0);
+		return result;
+	}
 }

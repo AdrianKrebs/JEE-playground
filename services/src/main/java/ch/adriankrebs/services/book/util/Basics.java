@@ -138,6 +138,9 @@ public class Basics {
 
     private void ternaryOperator() {
         // booleanExpression ? expression1 : expression2
+
+        // doesnt matter if braces or not
+        double taxRate = 20<=18000 ? 0 : (20<=36000) ? .1 : .2;
         int x = 5;
         System.out.println(x > 2 ? x < 4 ? 10 : 8 : 7);
 

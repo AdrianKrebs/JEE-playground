@@ -18,10 +18,14 @@ public class Loops {
         i = 0;
 
         while (i++ < 10) {
-
+            tEST: System.out.println("test");
             //evaluates expression after incrementing
             //therefore this statement is excuted 10  times like we expect it
             System.out.println("counting up with i++" + i);
+            if (true) {
+
+
+            }
         }
 
 //        --k>0 implies, decrement the value of k and then compare with 0. Therefore, the loop will only  execute twice, printing 2 and 1.

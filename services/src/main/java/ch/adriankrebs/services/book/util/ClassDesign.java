@@ -555,7 +555,6 @@ Here, null can be passed as both StringBuffer and String and none is more specif
 
     }
 
-
     static class Parent implements MyOtherInterface {
         int i;
 
@@ -670,8 +669,17 @@ class TestClass4 implements B4 {
         B4.super.hello(); //This is valid.
     }
 }
+ class TestClass223{
+     public static void main(String[] args)  {     calculate(2);    }
+     public static void calculate(int x){
+         if (true)
+             if (false)
+                 System.out.println("True False");
+             else
+                 System.out.println("True True");
 
-
+     }
+}
 class Automobile {
 }
 

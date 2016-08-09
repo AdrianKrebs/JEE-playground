@@ -56,17 +56,17 @@ public class DateTime {
                 DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
         System.out.println(shortDateTime.format(dateTime)); // 1/20/20
         System.out.println(shortDateTime.format(date)); // 1/20/20
-        System.out.println(
-                shortDateTime.format(time)); // UnsupportedTemporalTypeException
+      //  System.out.println(
+//                shortDateTime.format(time)); // UnsupportedTemporalTypeException
 
         DateTimeFormatter f = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mm");
         System.out.println(dateTime.format(f)); // January 20, 2020, 11:12
 
         DateTimeFormatter f12313 = DateTimeFormatter.ofPattern("MM dd yyyy");
-        LocalDate date12321 = LocalDate.parse("01 02 2015", f);
-        LocalTime time123123 = LocalTime.parse("11:22");
-        System.out.println(date12321); // 2015-01-02
-        System.out.println(time123123); // 11:22
+//        LocalDate date12321 = LocalDate.parse("01 02 2015", f);
+//        LocalTime time123123 = LocalTime.parse("11:22");
+//        System.out.println(date12321); // 2015-01-02
+//        System.out.println(time123123); // 11:22
 
 
         LocalDate.parse("2018-04-30", DateTimeFormatter.ISO_LOCAL_DATE);
@@ -108,8 +108,18 @@ public class DateTime {
         System.out.println(LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY)));
         System.out.println(TemporalAdjusters.next(DayOfWeek.TUESDAY).adjustInto(LocalDate.now()));
 
-        /*
 
+        java.time.LocalDate dt = java.time.LocalDate.parse("2015-01-01").minusMonths(1).minusDays(1).plusYears(1);
+        System.out.println(dt);
+        System.out.println(LocalDate.of(2015, Month.JANUARY, 01).format(DateTimeFormatter.ISO_DATE_TIME));
+
+        //Note that LocalDateTime class does not contain Zone information but ISO_ZONED_DATE_TIME requires it. Thus, it will throw the following exception:
+
+//        Exception in thread "main" java.time.temporal.UnsupportedTemporalTypeException: Unsupported field: OffsetSeconds
+
+
+
+        /*
 Adjusters are a key tool for modifying temporal objects. They exist to externalize the process of adjustment, permitting different approaches, as per the strategy design pattern.
  Examples might be an adjuster that sets the date avoiding weekends, or one that sets the date to the last day of the month.
 There are two equivalent ways of using a TemporalAdjuster. The first is to invoke the method on the interface directly. The second is to use Temporal.with(TemporalAdjuster):

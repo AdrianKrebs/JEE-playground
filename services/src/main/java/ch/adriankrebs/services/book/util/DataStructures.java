@@ -15,9 +15,28 @@ public class DataStructures {
 
 
         List<String> stringList = new ArrayList<>();
+        List s1 = new ArrayList( );
+        s1.add("a");
+        s1.add("b");
+        s1.add("c");
+        s1.add("a");
+        if(s1.remove("a")){
+            if(s1.remove("a")){
+                s1.remove("b");
+            }else{
+                s1.remove("c");
+            }
+        }
+        System.out.println(s1);
+
+        // --> c
 
 
-
+   /*     ArrayList's remove(Object ) method removes the first occurence of the given element and returns true if found.
+        It does not remove all occurences of the element. In this case, the first call to s1.remove("a"); will remove only the first "a"
+        and return true, the second call to remove("a") will remove the second "a" and return true.
+                Finally, the call to remove("b") will remove "b". Therefore, only "c" will be left in the list.
+*/
 
         /*
         order

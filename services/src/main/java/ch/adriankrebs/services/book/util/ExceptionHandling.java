@@ -68,6 +68,14 @@ before the derived class exceptions. An attempt to do this will result in compil
 
         testMethod();*/
 
+
+        int j = 1;
+        try{
+            int i = doIt() / (j = 2); // j stays 1 --> if (j = 2) / do() then j = 3
+        } catch (Exception e){
+            System.out.println(" j = " + j);
+        }
+
         try {
             RuntimeException tr = null;
             // logical -> null pointer is thown as soon as thows clause is called
@@ -86,7 +94,9 @@ before the derived class exceptions. An attempt to do this will result in compil
 //        System.out.println(s);
     }
 
-    private static void testMethod() throws Exception{
+    public static int doIt() throws Exception {  throw new Exception("FORGET IT");  }
+
+    private static void testMethod() throws Throwable{
         try{
             amethod();
             System.out.println("try ");
@@ -100,6 +110,11 @@ before the derived class exceptions. An attempt to do this will result in compil
         System.out.print("out ");
     }
     public static void amethod(){ throw new NullPointerException();}
+
+//    The point to note here is that if you do not catch an exception, i
+// t is propagated up the stack of method calls until it is handled. If nobody handles it,
+// the JVM handles that exception and kills the thread. If that thread is the only user thread running, the program ends.
+
 
 
 
@@ -131,5 +146,23 @@ before the derived class exceptions. An attempt to do this will result in compil
 
 
 }
+
+class SomeThrowable extends Throwable { }
+class MyThrowable extends SomeThrowable { }
+ class TestClass22{
+    public static void main(String args[]) throws SomeThrowable{
+        try{
+            m1();
+        }catch(SomeThrowable e){
+            throw e;
+        }finally{
+            System.out.println("Done");
+        }
+    }
+    public static void m1() throws MyThrowable{
+        throw new MyThrowable();
+    }
+}
+
 
 
