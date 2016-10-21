@@ -193,7 +193,7 @@ Thus, new Boolean("true") == new Boolean("true") is false, but new Boolean("true
         }
 
 
-        int octTest = 0xA;
+        int octTest = 0XA;
         System.out.println(octTest);
 
         // comparing all primitves works
@@ -276,8 +276,13 @@ Thus, new Boolean("true") == new Boolean("true") is false, but new Boolean("true
         // prefix oct -> 0
         System.out.println(0x4_13);
 
+        long test = 121;
+        char testet = (char)test;
+        long tewt= testet;
+
         byte byteliteral = 0b1111111; // = 127
 
+        String sa[ ] = new String[ ]{"a", "b", "c"};
 
         int octaltest = 01;
 
@@ -443,6 +448,10 @@ We advise you to run this program and try out various combinations. The exam has
         int[] array1, array2[];
         array1 = new int[2];
         array2 = new int[2][1];
+
+
+        int i[ ][ ] = new int[ ][ ] { {1, 2, 3}, {4, 5, 6} } ;
+        int i234[ ][ ] = new int[ ][ ] { {1, 2, 3}, {4, 5, 6} } ;
 
         int array10[], arrayOrInt;
 

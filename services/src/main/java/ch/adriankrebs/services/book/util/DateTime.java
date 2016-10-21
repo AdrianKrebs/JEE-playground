@@ -3,7 +3,9 @@ package ch.adriankrebs.services.book.util;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Locale;
 
 /**
  * Created by Adrian on 8/5/2016.
@@ -111,7 +113,7 @@ public class DateTime {
 
         java.time.LocalDate dt = java.time.LocalDate.parse("2015-01-01").minusMonths(1).minusDays(1).plusYears(1);
         System.out.println(dt);
-        System.out.println(LocalDate.of(2015, Month.JANUARY, 01).format(DateTimeFormatter.ISO_DATE_TIME));
+//        System.out.println(LocalDate.of(2015, Month.JANUARY, 01).format(DateTimeFormatter.ISO_DATE_TIME));
 
         //Note that LocalDateTime class does not contain Zone information but ISO_ZONED_DATE_TIME requires it. Thus, it will throw the following exception:
 
@@ -129,6 +131,30 @@ There are two equivalent ways of using a TemporalAdjuster. The first is to invok
 
 
          */
+
+
+        //ChronoUnit to show difference
+        LocalTime one = LocalTime.of(5, 15);
+        LocalTime two = LocalTime.of(6, 30);
+        LocalDate datum = LocalDate.of(2016, 1, 20);
+        System.out.println(ChronoUnit.HOURS.between(one, two)); // 1
+
+
+        LocalDate daylightDate = LocalDate.of(2016, Month.NOVEMBER, 6);
+        LocalTime gemmeTime = LocalTime.of(1, 30);
+        ZoneId zone = ZoneId.of("US/Eastern");
+        ZonedDateTime gemmeDate = ZonedDateTime.of(daylightDate, gemmeTime, zone);
+        System.out.println(gemmeDate); // 2016–11–06T01:30–04:00[US/Eastern]
+        gemmeDate = gemmeDate.plusHours(1);
+        System.out.println(gemmeDate); // 2016–11–06T01:30–05:00[US/Eastern]
+        gemmeDate = gemmeDate.plusHours(1);
+        System.out.println(gemmeDate); // 2016–11–06T02:30–05:00[US/Eastern]
+
+
+        System.out.println(Locale.GERMAN); // de
+        System.out.println(Locale.GERMANY); // de_DE
+
+
 
     }
 

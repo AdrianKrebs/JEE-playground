@@ -26,7 +26,15 @@ public class Loops {
 
 
             }
+
         }
+
+        int i2=0, j=11;
+        do{
+            if(i2 > j) { break; }
+            j--;
+        }while( ++i2 < 5);
+        System.out.println(i2+"  "+j);
 
 //        --k>0 implies, decrement the value of k and then compare with 0. Therefore, the loop will only  execute twice, printing 2 and 1.
 //
@@ -109,14 +117,10 @@ public class Loops {
         short m = 5;
         switch (m) {
 
-            case 5:
-
-
-                break;
-
-
 
         }
+
+
 
         boolean b = false;
         int i = 1;
@@ -133,12 +137,9 @@ public class Loops {
 
     }
 
-    public void switchTest(byte x){
+    public static void switchTest(byte x){
         switch(x){
-            case 'b':   // 1
-            default :   // 2
-            case -2:    // 3
-            case 80:    // 4
+//            System.out.println("test");
         }
 
     }
@@ -270,7 +271,10 @@ public class Loops {
 
 
 
-
+    static boolean b;
+    static int[] ia = new int[1];
+    static char ch;
+    static boolean[] ba = new boolean[1];
 
     public static void main(String[] args) {
 
@@ -285,6 +289,16 @@ public class Loops {
             }
             System.out.println("hello");
         }
+
+        byte b2 = -2;
+        switchTest(b2);
+
+        boolean x = false;
+        if( b ){
+            x = ( ch == ia[ch]);
+        }
+        else x = ( ba[ch] = b );
+        System.out.println(x+" "+ba[ch]);
 
         char i;
         LOOP:

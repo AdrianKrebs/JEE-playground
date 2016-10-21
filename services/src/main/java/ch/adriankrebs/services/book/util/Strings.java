@@ -73,6 +73,7 @@ public class Strings {
         sb7.setLength(5);
         sb7.setLength(10);
         System.out.println("length:"+sb7.length());
+        sb.append(1);
 
 
         String add =""+ 1 + 2;

@@ -9,6 +9,9 @@ import java.nio.file.FileAlreadyExistsException;
  */
 public class ClassDesign {
 
+    //    Polymorphism deals with how the program decides which methods it should use,
+    //Inheritance is when a 'class' derives from an existing 'class'.
+
     protected int testaccessor = 0;
 
     static class Super {
@@ -308,7 +311,7 @@ public class ClassDesign {
         private int j = 20;
         String courseName;
 
-        void test() {
+        void test() throws IOException {
 
         }
 
@@ -332,6 +335,11 @@ public class ClassDesign {
         private void setShadow(int i) {
             // This outer variable is said to be shadowed by the inner variable
             this.i = i;
+        }
+
+        @Override
+        public void test() throws FileNotFoundException{
+
         }
 
         public void exceptionTest() throws IOException, MyException {
@@ -368,7 +376,7 @@ public class ClassDesign {
 //  You are looking at the declarationAndComparing of the method in the class of the reference (not of actual object) to
 // determine whether you have to put the call in try/catch or not (Or declare the throws clause of the caller appropriately).
         @Override
-        public void exceptionTest()  {
+        public void exceptionTest() {
 
         }
 
@@ -651,7 +659,14 @@ abstract class BankAccount implements PremiumAccount {
 
 
 interface A4 {
+    public static final int testset = 5;
+
     default void hello() {
+    }
+
+
+    default void check() {
+
     }
 }
 
@@ -660,26 +675,109 @@ interface B4 extends A4 {
         // super.hello();    //This is NOT valid.
         A4.super.hello();    //This is valid.
     }
+
+    // void check();
+
+    void blabla();
 }
 
-class TestClass4 implements B4 {
+abstract class B52 {
+
+    abstract void testesttest();
+
+    public void teslatws() {
+
+        int[] test = new int[3];
+        int[] overflow = {1, 2, 3, 4, 5};
+
+        test = overflow;
+        for (int i : test) {
+            System.out.println(i);
+        }
+
+    }
+}
+
+class TestClass4 extends B52 implements B4 {
+
     public void hello() {
         // super.hello();//This is NOT valid.
         // A4.super.hello(); //This is NOT valid because TestClass does not implement A directly.
         B4.super.hello(); //This is valid.
+
+    }
+
+    private String hideTester() {
+        return "hidden superclass method";
+    }
+
+
+    @Override
+    public void blabla() {
+
+    }
+
+    @Override
+    void testesttest() {
+
+    }
+
+    public static void main(String[] args) {
+        TestClass4 t = new TestClass5();
+        t.teslatws();
+        System.out.println("test 1   hidden from within class : " + t.hideTester());
     }
 }
- class TestClass223{
-     public static void main(String[] args)  {     calculate(2);    }
-     public static void calculate(int x){
-         if (true)
-             if (false)
-                 System.out.println("True False");
-             else
-                 System.out.println("True True");
 
-     }
+class TestClass5 extends TestClass4 {
+
+    public void blabla() {
+        System.out.println("bla");
+    }
+
+    public String hideTester() {
+        return "subclass method";
+    }
+
+
 }
+
+class TestClass223 {
+    public static void main(String[] args) {
+        calculate(2);
+
+        TestClass4 t = new TestClass5();
+        // System.out.println("test 1   hidden from within class : " + t.hideTester()); -_> NOT COMPILE
+
+
+    }
+
+    public static void calculate(int x) {
+        if (true)
+            if (false)
+                System.out.println("True False");
+            else
+                System.out.println("True True");
+
+    }
+}
+
+class TestClass123 {
+
+    public static void doStuff() throws Exception {
+        System.out.println("Doing stuff...");
+        if (Math.random() > 0.4) {
+            throw new Exception("Too high!");
+        }
+        System.out.println("Done stuff.");
+    }
+
+    public static void main(String[] args) throws Exception {
+        doStuff();
+        System.out.println("Over");
+    }
+}
+
 class Automobile {
 }
 
@@ -702,9 +800,9 @@ class Car extends Automobile {
 
          */
 
-        car = (Car)(Automobile) car;
+        car = (Car) (Automobile) car;
 
-      //  This won't compile. By casting b1 to B, you are
+        //  This won't compile. By casting b1 to B, you are
         // telling the compiler that b1 points to an object
         // of class B. But you are then trying to assign this reference to b1, which is of class B1.
         // Compiler will complain against this assignment because there is no guarantee that an object of class B will also be of class B1.

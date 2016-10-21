@@ -1,5 +1,7 @@
 package ch.adriankrebs.services.book.util;
 
+import java.io.IOException;
+
 /**
  * Created by U116523 on 09.06.2016.
  */
@@ -55,7 +57,7 @@ before the derived class exceptions. An attempt to do this will result in compil
         m1(3);
     }
 
-    public static void main(String args[])  {
+    public static void main(String args[]) throws Throwable {
 
         /*int amount = 100, seed = 6;
         switch( luckyNumber(6) ){
@@ -69,22 +71,23 @@ before the derived class exceptions. An attempt to do this will result in compil
         testMethod();*/
 
 
-        int j = 1;
-        try{
-            int i = doIt() / (j = 2); // j stays 1 --> if (j = 2) / do() then j = 3
-        } catch (Exception e){
-            System.out.println(" j = " + j);
-        }
-
-        try {
-            RuntimeException tr = null;
-            // logical -> null pointer is thown as soon as thows clause is called
-            throw tr;
-        }
-        catch (Exception e){
-            System.out.println(e);
-
-        }
+//        int j = 1;
+//        try{
+//            int i = doIt() / (j = 2); // j stays 1 --> if (j = 2) / do() then j = 3
+//        } catch (Exception e){
+//            System.out.println(" j = " + j);
+//        }
+//
+//        try {
+//            RuntimeException tr = null;
+//            // logical -> null pointer is thown as soon as thows clause is called
+//            throw tr;
+//        }
+//        catch (Exception e){
+//            System.out.println(e);
+//
+//        }
+        testMethod();
 
 //        try {
 //            m();
@@ -100,6 +103,7 @@ before the derived class exceptions. An attempt to do this will result in compil
         try{
             amethod();
             System.out.println("try ");
+
         }
         catch(Exception e){
             System.out.print("catch ");
@@ -129,14 +133,15 @@ before the derived class exceptions. An attempt to do this will result in compil
 //    case 6: amount = amount + amount;
 //    are executed. so the final amount becomes 400.
 
-    public static int luckyNumber(int seed){
+    public static int luckyNumber(int seed) throws NumberFormatException{
         if(seed > 10) return seed%10;
         int x = 0;
         try{
             if(seed%2 == 0) throw new Exception("No Even no.");
             else return x;
+
         }
-        catch(Exception e){
+        catch(StackOverflowError e){
             return 3;
         }
         finally{
@@ -146,6 +151,8 @@ before the derived class exceptions. An attempt to do this will result in compil
 
 
 }
+
+
 
 class SomeThrowable extends Throwable { }
 class MyThrowable extends SomeThrowable { }
@@ -158,11 +165,30 @@ class MyThrowable extends SomeThrowable { }
         }finally{
             System.out.println("Done");
         }
+
+        try{
+            int i = 0;
+            i =  Integer.parseInt( args[0] );
+        }
+        catch(NumberFormatException e){
+          //  System.out.println("Problem in " + i );
+        }
+
+        int rate = 10;
+        long amount = 1 - rate/100*1 - rate/100;
+
+
     }
     public static void m1() throws MyThrowable{
         throw new MyThrowable();
     }
+
 }
 
+ class PortConnector{
+    public PortConnector(int port) throws IOException {
+
+    }
+}
 
 

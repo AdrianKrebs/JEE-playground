@@ -82,12 +82,16 @@ class A{
     private final void unoverritable() {
 
     }
-    public void g(){}
+    public void g(){
+        System.out.println("lolA");
+    }
 }
 
 class B extends A{
     public int i = 20;
-    public void g(){}
+    public void g(){
+        System.out.println("lolB");
+    }
 
     public final void unoverritable() {
 
@@ -100,12 +104,17 @@ class B extends A{
          A a = new A();//1
          B b = new B();//2
          A a2 = new B();
+         a2.g();
 
          a2.f();
 
         b.i = 10;
 
          // remember __> method ---> object ---> VARIABLE --> CLASS --> i not accessable in A
+     }
+
+     public static void main(String[] args) {
+         C c = new C();
      }
 }
 

@@ -31,7 +31,7 @@ public class Lesson2
      */
     public void runExercises() throws IOException
     {
-        System.out.println("JDK 8 Lambdas and Streams MOOC Lesson 2");
+        System.out.println("JDK 8 FunctionalProgramming and Streams MOOC Lesson 2");
         System.out.println("Running exercise 1 solution...");
         exercise1();
         System.out.println("Running exercise 2 solution...");

@@ -10,7 +10,7 @@ public class Lesson1
      */
     public void runExercises()
     {
-        System.out.println("JDK 8 Lambdas and Streams MOOC Lesson 1");
+        System.out.println("JDK 8 FunctionalProgramming and Streams MOOC Lesson 1");
         System.out.println("Running exercise 1 solution...");
         exercise1();
         System.out.println("Running exercise 2 solution...");
