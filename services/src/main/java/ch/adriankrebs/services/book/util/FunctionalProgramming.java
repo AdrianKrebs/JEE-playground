@@ -2,6 +2,7 @@ package ch.adriankrebs.services.book.util;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 import java.util.function.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -157,6 +158,12 @@ public class FunctionalProgramming {
         oneElement.reduce(op).ifPresent(System.out::print); // 3
         threeElements.reduce(op).ifPresent(System.out::print); // 90
 
+        // identity, the second parameter is called the accumulator, and the third parameter is called the combiner.
+        // use the third argument in reduce (combiner) for parallel streams
+        System.out.println(Arrays.asList('w', 'o', 'l', 'f')
+                .stream()
+                .reduce("",(cx,sx1) -> cx + sx1,
+                        (sx2,sx3) -> sx2 + sx3));
 
         //collect
         Collector<StringBuilder, StringBuilder, StringBuilder> collector = Collector.of(StringBuilder::new,
@@ -168,6 +175,19 @@ public class FunctionalProgramming {
         System.out.println(set); // [f, l, o, w]
         Set<String> unsortedSet = stream.collect(Collectors.toSet());
         System.out.println(unsortedSet); // [f, w, l, o]
+
+
+        // concurrent reduction
+        // identity, the second parameter is called the accumulator, and the third parameter is called the combiner.
+        // use the third argument in reduce (combiner) for parallel streams
+        System.out.println(Stream.of('w', 'o', 'l', 'f')
+                .reduce("",(cy,sy1) -> cy + sy1,
+                        (sy2,sy3) -> sy2 + sy3));
+        Stream<String> ohMy = Stream.of("lions", "tigers", "bears").parallel();
+        ConcurrentMap<Integer, List<String>> mapY = ohMy.collect(
+                Collectors.groupingByConcurrent(String::length));
+        System.out.println(mapY); // {5=[lions, bears], 6=[tigers]}
+
 
 
         //how streams work

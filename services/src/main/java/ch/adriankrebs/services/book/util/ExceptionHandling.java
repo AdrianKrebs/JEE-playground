@@ -1,6 +1,7 @@
 package ch.adriankrebs.services.book.util;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by U116523 on 09.06.2016.
@@ -152,6 +153,19 @@ before the derived class exceptions. An attempt to do this will result in compil
 
 }
 
+class TryWithResources implements AutoCloseable {
+    public void close() throws IllegalStateException {
+        throw new IllegalStateException("Cage door does not close");
+    }
+    public static void main(String[] args) {
+        try (TryWithResources t = new TryWithResources(); TryWithResources t2 = new TryWithResources()) {
+            System.out.println("put turkeys in");
+        } catch (IllegalStateException e) {
+            System.out.println("caught: " + e.getMessage());
+        }
+    }
+}
+
 
 
 class SomeThrowable extends Throwable { }
@@ -186,7 +200,17 @@ class MyThrowable extends SomeThrowable { }
 }
 
  class PortConnector{
-    public PortConnector(int port) throws IOException {
+     private void startPorxy() throws IOException, SQLException {
+         try {
+             openPort(8080);
+         } catch (Exception e) { // to avoid code duplication we can add the parent class of the exception we need to check for
+             e.printStackTrace();
+            throw e;
+         }
+     }
+
+
+    public static void openPort(int port) throws IOException, SQLException {
 
     }
 }
