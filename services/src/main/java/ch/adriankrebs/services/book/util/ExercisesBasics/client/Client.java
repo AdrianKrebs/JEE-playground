@@ -81,4 +81,8 @@ public class Client extends Thread {
             clientSocket = null;
         }
     }
+
+    void accessorTest() {
+
+    }
 }

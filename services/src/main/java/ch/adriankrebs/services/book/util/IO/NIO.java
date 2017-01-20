@@ -1,4 +1,4 @@
-package ch.adriankrebs.services.book.util;
+package ch.adriankrebs.services.book.util.IO;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -17,7 +18,7 @@ public class NIO {
 
 
     // way to do with java 8 with checked exception
-    private static void java8SuperShortWay(Path input) throws IOException {
+    private static void java8SuperShortWay(Path input) throws IOException, NoSuchFileException{
 
         // to find out working directory
         String cwd = new File(".").getAbsolutePath();

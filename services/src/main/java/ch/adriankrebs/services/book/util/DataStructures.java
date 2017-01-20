@@ -136,6 +136,11 @@ public class DataStructures {
         Comparator comp = Comparator.reverseOrder();
         Collections.sort(rabbits, comp);
 
+        // sorting in Streams
+        // sorted takes no arguments or a function
+        rabbits.stream().sorted(Comparator.comparing((r)-> r.id)).forEach(System.out::println);
+        rabbits.stream().map(r -> r.id).sorted().forEach(System.out::println);
+
 
         Comparator<Duck> byWeight = new Comparator<Duck>() {
             public int compare(Duck d1, Duck d2) {

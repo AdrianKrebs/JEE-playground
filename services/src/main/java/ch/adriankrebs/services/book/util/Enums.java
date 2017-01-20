@@ -13,6 +13,7 @@ public enum Enums {
     }, SPRING, SUMMER, FALL; //<--- only needed when more than just declaration
 
 
+    public static enum TestEnum {A, B, C}; // enums are static anyway. enum declaration in method bodies or constructors are not allowed
     public void printHours() {
         System.out.println("opening hours are 9 am - 2 pm");
     }
