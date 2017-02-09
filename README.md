@@ -2,6 +2,7 @@
 
 ##Useful Links
 * https://docs.oracle.com/javase/tutorial/collections/streams/reduction.html
+* https://docs.oracle.com/javase/tutorial/extra/certification/javase-7-programmer2.html
 
 List<Tester>testers = new ArrayList<>(Arrays.asList(new Tester("test",100),new Tester("test",50),new Tester("sefwese",60), new Tester("sdfdsf",60)));
 
