@@ -1,6 +1,7 @@
 package ch.adriankrebs.services.book.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,10 +16,14 @@ public class Generics {
     static class Bird {
     }
 
+    public class SpecialSorter<K>{
+    }
+
     public static void main(String[] args) {
         List<? extends Bird> birds = new ArrayList<>();
+        // PECS 
        // birds.add(new Sparrow()); // DOES NOT COMPILE
-       // birds.add(new Bird()); // DOES NOT COMPILE
+      // birds.add(new Bird()); // DOES NOT COMPILE
 
         List<String> strings = new ArrayList<String>();
         strings.add("tweet");
@@ -29,12 +34,29 @@ public class Generics {
         tester.remove("onetwo");
 
 
+        PlaceHolder<String, String> ph1 = PlaceHolder.getDuplicateHolder("b"); //1
+        PlaceHolder<?, ?> ph5 = new PlaceHolder(10, 10); //5
 
     }
+
+
 
     public static void addSound(List<String> list)
     {
         list.add("quack");
+    }
+
+    public static class PlaceHolder<K, V> { //1
+        private K k;
+        private V v;
+        public PlaceHolder(K k, V v){ //2
+            this.k = k;
+            this.v = v;
+        }
+        public K getK() { return k; }
+        public static <X> PlaceHolder<X, X> getDuplicateHolder(X x){ //3
+            return new PlaceHolder<>(x, x); //4
+        }
     }
 }
 
@@ -58,9 +80,15 @@ class BoxDemo {
         }
     }
 
+    public static <E extends CharSequence> List<? super E> doIt(List<E> nums) {
+        return new ArrayList<E>();
+    }
+
     public static void main(String[] args) {
         java.util.ArrayList<Box<Integer>> listOfIntegerBoxes =
                 new java.util.ArrayList<>();
+
+        List test = doIt(new ArrayList<>(Arrays.asList("test")));
 
         /*
         The generic method addBox defines one type parameter named U.

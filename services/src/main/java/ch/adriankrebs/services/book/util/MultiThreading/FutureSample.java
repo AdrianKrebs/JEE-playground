@@ -1,9 +1,6 @@
 package ch.adriankrebs.services.book.util.MultiThreading;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * Created by Adrian on 1/3/2017.
@@ -33,14 +30,12 @@ public class FutureSample {
         }
 
 
-
-
-
-
-
-
-
     }
 
+    static class MyTask implements Callable<String> {
+        public String call(){
+            return "Data from callable";
+        }
+    }
 
 }

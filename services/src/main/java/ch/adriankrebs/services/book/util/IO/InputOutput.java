@@ -1,6 +1,10 @@
 package ch.adriankrebs.services.book.util.IO;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 /**
  * Created by Adrian on 1/4/2017.
@@ -16,6 +20,12 @@ public class InputOutput {
         filter the data as Java objects.
 
          */
+
+        Console console = System.console();
+        if(console != null) {
+            String userInput = console.readLine();
+            console.writer().println ("You entered the following: "+userInput);
+        }
 
         try (ObjectInputStream objectStream = new ObjectInputStream(
                 new BufferedInputStream(
@@ -41,6 +51,14 @@ public class InputOutput {
         File source = new File("Zoo.class");
         File destination = new File("ZooCopy.class");
         copyByteContentSlowly(source, destination);
+
+
+
+        Stream<String> lines = Files.lines(Paths.get("test.txt"), Charset.defaultCharset());
+        lines.forEach(s -> System.out.println(s));
+
+
+
 
     }
 

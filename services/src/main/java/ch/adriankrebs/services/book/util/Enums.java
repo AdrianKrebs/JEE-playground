@@ -18,4 +18,9 @@ public enum Enums {
         System.out.println("opening hours are 9 am - 2 pm");
     }
 
+
+    public static void main(String[] args) {
+        Enums.WINTER.name();
+        // NO INDEX but name and ordinal methods
+    }
 }

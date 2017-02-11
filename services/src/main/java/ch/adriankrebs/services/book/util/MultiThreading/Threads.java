@@ -48,7 +48,7 @@ public class Threads {
 
 
 
-    public static void executerServiceTester() throws InterruptedException {
+    public static synchronized void executerServiceTester() throws InterruptedException {
 
         AtomicInteger integer = new AtomicInteger();
         integer.compareAndSet(0,1);

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -140,13 +139,13 @@ public class FunctionalProgramming {
         System.out.println(stringList1.stream().anyMatch(pred)); // true
         System.out.println(stringList1.stream().allMatch(pred)); // false
         System.out.println(stringList1.stream().noneMatch(pred)); // false
-        System.out.println(infinite.anyMatch(pred)); // true
+        //System.out.println(infinite.anyMatch(pred)); // true
 
         //reduction
         Stream<String> stream = Stream.of("w", "o", "l", "f");
-        String word = stream.reduce("", (firstString, secondString) -> firstString + secondString);
+        //String word = stream.reduce("", (firstString, secondString) -> firstString + secondString);
         String wordShorter = stream.reduce("", String::concat); //method reference at its best
-        System.out.println(word); // wolf
+        //System.out.println(word); // wolf
 
         Stream<Integer> numbers = Stream.of(1, 2, 3, 4); // caution here: define the type of the Stream!
         System.out.println(numbers.reduce(1, (a, b) -> a * b));
@@ -166,7 +165,7 @@ public class FunctionalProgramming {
                         (sx2,sx3) -> sx2 + sx3));
 
         //collect
-        Collector<StringBuilder, StringBuilder, StringBuilder> collector = Collector.of(StringBuilder::new,
+        /*Collector<StringBuilder, StringBuilder, StringBuilder> collector = Collector.of(StringBuilder::new,
                 StringBuilder::append, StringBuilder::append);
         StringBuilder collectedWord = stream.collect(StringBuilder::new,
                 StringBuilder::append, StringBuilder::append);
@@ -174,7 +173,7 @@ public class FunctionalProgramming {
         TreeSet<String> set = stream.collect(Collectors.toCollection(TreeSet::new));
         System.out.println(set); // [f, l, o, w]
         Set<String> unsortedSet = stream.collect(Collectors.toSet());
-        System.out.println(unsortedSet); // [f, w, l, o]
+        System.out.println(unsortedSet); // [f, w, l, o]*/
 
 
         // concurrent reduction
@@ -215,6 +214,48 @@ public class FunctionalProgramming {
         BooleanSupplier booleanSupplier = () -> true;
         System.out.println(booleanSupplier);
 
+
+        // comparing
+        List<Item> items = new ArrayList<>(Arrays.asList(new Item("test1")));
+
+        List<String> sortedByNameLength = items.stream().map(Item::getName).sorted(Comparator.comparing(String::length)).collect(Collectors.toList());
+
+
+        List<String> l1 = Arrays.asList("a", "b");
+        List<String> l2 = Arrays.asList("1", "2");
+        Stream.of(l1, l2).flatMap(e -> e.stream()).forEach(System.out::println);
+
+        Stream<Integer> values = IntStream.rangeClosed(10, 15).boxed(); //1
+        Object obj = values.collect(Collectors.partitioningBy(x->x%2==0)); //2
+        System.out.println(obj);
+/*
+
+        List<String> books = Arrays.asList(
+                "Gone with the wind",
+                "Gone with the wind",
+                "Atlas Shrugged"
+        );
+        books.stream().collect(Collectors.toMap((b -> b), b->b.length()))
+                .forEach((a, b)->System.out.println(a+" "+b));
+*/
+
+
+        ArrayList<Integer> source = new ArrayList<Integer>();
+        source.addAll(Arrays.asList(1, 2, 3, 4, 5, 6));
+
+        List<Integer> destination =
+                Collections.synchronizedList(new ArrayList<Integer>());
+
+        source
+                .stream()  //1
+                .peek(item->{destination.add(item); }) //2
+                .forEachOrdered(System.out::print);
+        System.out.println("");
+        destination
+                .stream() //3
+                .forEach(System.out::print); //4
+        System.out.println("");
+
     }
 
     private static void check(Climb climb, int height) {
@@ -237,6 +278,18 @@ public class FunctionalProgramming {
         int sum = 0;
         for (int score : scores) sum += score;
         return Optional.of((double) sum / scores.length);
+    }
+
+    static class Item{
+     private String name;
+
+        public Item(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
 }

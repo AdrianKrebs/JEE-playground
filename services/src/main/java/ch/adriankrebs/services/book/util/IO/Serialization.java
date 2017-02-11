@@ -66,6 +66,19 @@ public class Serialization {
             this.type = type;
         }
 
+        // Custom Serialization
+        private void writeObject(ObjectOutputStream os) throws Exception {
+            os.defaultWriteObject();
+            os.writeInt(gender.length());
+            //write the state of bond objects}
+            os.writeBoolean(gender.contains("F"));
+        }
+
+        private void readObject(ObjectInputStream os) throws Exception {
+            os.defaultReadObject();
+            int n = os.readInt();
+            //read the state of bond objects.
+        }
         public String getName() {
             return name;
         }

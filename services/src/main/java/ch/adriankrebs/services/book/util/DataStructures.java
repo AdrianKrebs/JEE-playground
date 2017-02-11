@@ -2,6 +2,7 @@ package ch.adriankrebs.services.book.util;
 
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * Created by Adrian on 8/5/2016.
@@ -130,15 +131,15 @@ public class DataStructures {
 
 
         List<Rabbit> rabbits = new ArrayList<>();
-        rabbits.add(new Rabbit());
-        Comparator<Rabbit> c2 = (r1, r2) -> r1.id - r2.id;
-        Collections.sort(rabbits, c2);
-        Comparator comp = Comparator.reverseOrder();
-        Collections.sort(rabbits, comp);
+        rabbits.addAll(Arrays.asList(new Rabbit(3),new Rabbit(4)));
+//        Comparator<Rabbit> c2 = (r1, r2) -> r1.id - r2.id;
+//        Collections.sort(rabbits, c2);
+//        Comparator comp = Comparator.reverseOrder();
+//        Collections.sort(rabbits, comp);
 
         // sorting in Streams
         // sorted takes no arguments or a function
-        rabbits.stream().sorted(Comparator.comparing((r)-> r.id)).forEach(System.out::println);
+        //rabbits.stream().sorted(Comparator.comparing((r)-> r.id)).forEach(System.out::println);
         rabbits.stream().map(r -> r.id).sorted().forEach(System.out::println);
 
 
@@ -150,11 +151,16 @@ public class DataStructures {
         List<Duck> ducks = new ArrayList<>();
         ducks.add(new Duck("Quack", 7));
         ducks.add(new Duck("Puddles", 10));
-        Collections.sort(ducks);
+
+        // different ways of sorting
+        Collections.sort(ducks); // comparable
         System.out.println(ducks); // [Puddles, Quack]
         Collections.sort(ducks, byWeight);
         System.out.println(ducks); // [Quack, Puddles]
+        java.util.Collections.sort(ducks, (p1, p2)->p1.getName().compareTo(p2.getName()));
+        java.util.Collections.sort(ducks, Comparator.comparing(Duck::getName));
 
+        Map<String, Set<Integer>> collect = ducks.stream().collect(Collectors.groupingBy(Duck::getName, Collectors.mapping(Duck::getWeight, Collectors.toSet())));
 
 
 
@@ -170,7 +176,7 @@ public class DataStructures {
         });
 
         // pass comperator as parameter or implement comparable within rabbit
-        rabbit.add(new Rabbit());
+        rabbit.addAll(Arrays.asList(new Rabbit(3),new Rabbit(4)));
 
         HashMap<Integer,Integer>  tester = new HashMap<>(10);
 
@@ -201,8 +207,47 @@ public class DataStructures {
         favorites.putIfAbsent("Jenny","alreadyThere");
 
 
+        // Navigatable Map --> Threadsafe
 
-        Queue<String> link = new LinkedList<>();
+        NavigableMap<String, String> mymap = new TreeMap<String, String>();
+        mymap.put("a", "apple"); mymap.put("b", "boy"); mymap.put("c", "cat");
+        mymap.put("aa", "apple1"); mymap.put("bb", "boy1"); mymap.put("cc", "cat1");
+
+        mymap.pollLastEntry(); //LINE 1
+        mymap.pollFirstEntry(); //LINE 2
+
+        NavigableMap<String, String> tailmap = mymap.tailMap("bb", false); //LINE 3
+
+        System.out.println(tailmap.pollFirstEntry()); //LINE 4
+        System.out.println(mymap.size()); //LINE 5
+
+        NavigableMap<String,Integer> navigableMap=new TreeMap<String, Integer>();
+
+        navigableMap.put("X", 500);
+        navigableMap.put("B", 600);
+        navigableMap.put("A", 700);
+        navigableMap.put("T", 800);
+        navigableMap.put("Y", 900);
+        navigableMap.put("Z", 200);
+
+        System.out.printf("Descending Set  : %s%n",navigableMap.descendingKeySet());
+
+        System.out.printf("Floor Entry  : %s%n",navigableMap.floorEntry("L"));
+
+        System.out.printf("First Entry  : %s%n",navigableMap.firstEntry());
+
+        System.out.printf("Last Key : %s%n",navigableMap.lastKey());
+
+        System.out.printf("First Key : %s%n",navigableMap.firstKey());
+
+        System.out.printf("Original Map : %s%n",navigableMap);
+
+        System.out.printf("Reverse Map : %s%n",navigableMap.descendingMap());
+
+
+
+
+
 
 
     }
@@ -236,6 +281,10 @@ public class DataStructures {
 
 class Rabbit {
     int id;
+
+    public Rabbit(int id) {
+        this.id = id;
+    }
 }
 
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -36,6 +37,11 @@ public class NIO {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree("{\"k1\":\"v1\"}");
 
+    }
+
+    public void usePrintWriter(PrintWriter pw) {
+        boolean bval = true;
+        pw.println(bval);
     }
 
 

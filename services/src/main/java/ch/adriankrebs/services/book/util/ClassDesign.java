@@ -678,7 +678,7 @@ interface B4 extends A4 {
 
     // void check();
 
-    void blabla();
+     void blabla() throws FileNotFoundException;
 }
 
 abstract class B52 {
@@ -713,7 +713,7 @@ class TestClass4 extends B52 implements B4 {
 
 
     @Override
-    public void blabla() {
+    public void blabla() throws FileNotFoundException{
 
     }
 
