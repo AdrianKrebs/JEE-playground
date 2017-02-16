@@ -170,6 +170,7 @@ List<Tester>testers = new ArrayList<>(Arrays.asList(new Tester("test",100),new T
          * ASSERTIONS
          */
 
+        //<boolean_expression> : <any_expression_but_void>
         int value = 5;
         boolean flag = false;
         assert flag : null; // what is possible on the right side of the assertion? quite everything
