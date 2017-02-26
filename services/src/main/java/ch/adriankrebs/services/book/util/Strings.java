@@ -1,5 +1,8 @@
 package ch.adriankrebs.services.book.util;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * Created by Adrian on 5/30/2016.
  */
@@ -69,8 +72,22 @@ public class Strings {
         String test = "2";
         test += "123";
 
-    }
+        StringBuilder sb7 = new StringBuilder("12345678");
+        sb7.setLength(5);
+        sb7.setLength(10);
+        System.out.println("length:"+sb7.length());
+        sb.append(1);
 
+
+        String add =""+ 1 + 2;
+        String add2 =1 + 2 + "";
+
+        System.out.println(add + " --- " +add2);
+
+
+
+
+    }
 
     private void reversing() {
         /*
@@ -264,7 +281,8 @@ public class Strings {
             } else {
                 System.out.println("They are NOT anagrams!");
             }
-            System.out.println();
+
+
 
            boolean b = "String".replace('g','g')=="String"; // ---> true
             //replace returns the same object if there is no change.
