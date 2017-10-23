@@ -1,4 +1,4 @@
-package ch.mobi.mcs.systemtest.zahlung;
+package ch.adriankrebs.services.book.util;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -6,19 +6,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.function.BiFunction;
@@ -61,11 +49,12 @@ public class Tester {
 
         Hashtable<String, String> hs = new Hashtable<>(); // vanishing rare to use hastable. not able to store null values, no guarantee
         LinkedHashSet<String> lhs = new LinkedHashSet<>(); // predictable order
-        LinkedHashMap<String, String> lhm = new LinkedHashMap<>();
-        TreeMap<String, String> tm = new TreeMap<>(); // Red-Black Tree based on navigableSet, predictable order
+        LinkedHashMap<String, String> lhm = new LinkedHashMap<>();  //predictable order maintains the elements in the order of their insertion time.
+        TreeMap<String, String> tm = new TreeMap<>(); // Red-Black Tree based on navigableSet, sorted according to comparator. predicatable order
         HashMap<String, String> hm = new HashMap<>(); // no guarantee of the order
         Set<String> hashset = new HashSet<>(); // unordered since set...
         hashset.add(null); //allowed
+        SortedMap<String,String> sortiert = new TreeMap<>(); // natural ordering of its keys or you could provide your own comperator
 
         hm.put(null, null); // null is allowed for keys as well as for values
         tm.put("test", null); // null keys not allowed
@@ -97,7 +86,7 @@ public class Tester {
 
         //allowed reading --> Child or subclasses of it, You cant read a grandChild because it could point to other subclass
         Parent parent = producer.get(0);
-        //GrandChild c =  producer.get(1); list could contain all subclasses of C but must contain subclass of Parent
+        GrandChild c = (GrandChild) producer.get(1); //list could contain all subclasses of C but must contain subclass of Parent
         System.out.println(parent);
 
         // SUPER --> lower bound
@@ -116,7 +105,7 @@ public class Tester {
         consumerParent.add(new Child("test"));
 
         // allowed reading --> nothing is guaranteed except that it is an object or subclass of object
-        GrandChild c = (GrandChild) consumerChild.get(1); // you arent guaranteed to get a specific class, even object is possible. so casting/ instanceOf is important
+        GrandChild c13 = (GrandChild) consumerChild.get(1); // you arent guaranteed to get a specific class, even object is possible. so casting/ instanceOf is important
         Object testerObj = consumerChild.get(0);
         System.out.println(testerObj);
 
@@ -304,7 +293,7 @@ class Address implements Comparable<Address> {
     }
 }
 
-class TestClass {
+class TestClass132 {
     public static void main(String[] args) {
         ArrayList<Address> al = new ArrayList<>();
         al.add(new Address("dupont dr", "28217"));

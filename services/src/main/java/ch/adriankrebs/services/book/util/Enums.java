@@ -42,4 +42,14 @@ public class Enums {
         }
     }
 
+
+
+
+}
+class Tester2 {
+    void someMethod()
+    {
+        System.out.println(Enums.Pets.DOG.getData());
+    }
+
 }

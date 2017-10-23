@@ -175,6 +175,15 @@ There are two equivalent ways of using a TemporalAdjuster. The first is to invok
 
 
 
+
+        LocalDateTime lat = LocalDateTime.of(2017, 12, 02, 6, 0, 0);
+        LocalDateTime nyt = LocalDateTime.of(2017, 12, 02, 9, 0, 0);
+
+        Duration betweenNyAndLa = Duration.between(nyt, lat);
+        System.out.println("LOOL: "+betweenNyAndLa);
+
+
+
     }
 
 

@@ -3,6 +3,10 @@ package ch.adriankrebs.services.book.data;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -45,6 +49,15 @@ public class Condition implements java.io.Serializable {
 	}
 
 	public void setName(String name) {
+	}
+
+	public Map<String, List<String>> getByGenreAndByAuthor() {
+		//return books.stream().collect(Collectors.groupingBy(Book::getName,Collectors.groupingBy(b -> String.valueOf(b.getIsbn()))));
+		Consumer<Book> increasePrice = s->s.setPrice(new Double(200));
+		Consumer<Book> print = System.out::println;
+		books.forEach(increasePrice);
+		books.stream().forEach(print);
+		return books.stream().collect(Collectors.groupingBy(Book::getName,Collectors.mapping(b -> String.valueOf(b.getIsbn()), Collectors.toList())));
 	}
 
 	public Collection<Book> getBooks() {

@@ -43,6 +43,10 @@ public class Generics {
         m.put(1.0, "Hello");     //3
         System.out.println(m);
 
+
+        List<?> list2 = new ArrayList<>(Arrays.asList("t2","t2"));
+
+
     }
 
 

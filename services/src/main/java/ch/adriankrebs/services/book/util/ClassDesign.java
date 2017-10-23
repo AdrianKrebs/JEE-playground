@@ -3,6 +3,7 @@ package ch.adriankrebs.services.book.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
+import java.sql.SQLException;
 
 /**
  * Created by Adrian on 5/21/2016.
@@ -20,6 +21,12 @@ public class ClassDesign {
 
         }
     }
+
+    abstract class AbstractTester {
+
+    abstract void m1();
+    }
+
 
     static class Sub extends Super {
 
@@ -41,6 +48,8 @@ public class ClassDesign {
     public static void main(String[] args) {
         int x = (x = 3) * 4;  // 1
         System.out.println(x);
+
+
 
 
         String conjunction = "1";
@@ -579,16 +588,25 @@ Here, null can be passed as both StringBuffer and String and none is more specif
 
     }
 
-    static class Child extends Parent implements MyInterface {
+    static class Child extends Parent implements MyInterface, MyInterface2 {
 
 
         public void setI(int y) {
             i = 22;
         }
 
+        @Override
+        public void m1() {
+
+        }
     }
 
     interface MyInterface {
+        void m1() throws SQLException;
+    }
+
+    interface MyInterface2 {
+        void m1() throws IOException;
     }
 
 

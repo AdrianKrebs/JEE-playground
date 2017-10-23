@@ -114,7 +114,7 @@ public class DataStructures {
         // QUEUES AND STACKS
 
 
-        Queue<Integer> queue = new ArrayDeque<>();
+        Queue<Integer> queue = new PriorityQueue<>();
         System.out.println(queue.offer(10)); // true
         System.out.println(queue.offer(4)); // true
         System.out.println(queue.peek()); // 10
@@ -122,6 +122,13 @@ public class DataStructures {
         System.out.println(queue.poll()); // 4
         System.out.println(queue.peek()); // nul
 
+        Deque<Integer> d = new ArrayDeque<>();
+        d.add(1);
+        d.push(2);
+        d.pop();
+        d.offerFirst(3);
+        d.remove();
+        System.out.println("--------------------------------"+d);
 
 
 
@@ -131,7 +138,7 @@ public class DataStructures {
 
 
         List<Rabbit> rabbits = new ArrayList<>();
-        rabbits.addAll(Arrays.asList(new Rabbit(3),new Rabbit(4)));
+        rabbits.addAll(Arrays.asList(new Rabbit(3), new Rabbit(4)));
 //        Comparator<Rabbit> c2 = (r1, r2) -> r1.id - r2.id;
 //        Collections.sort(rabbits, c2);
 //        Comparator comp = Comparator.reverseOrder();
@@ -143,24 +150,28 @@ public class DataStructures {
         rabbits.stream().map(r -> r.id).sorted().forEach(System.out::println);
 
 
+
         Comparator<Duck> byWeight = new Comparator<Duck>() {
             public int compare(Duck d1, Duck d2) {
                 return d1.getWeight() - d2.getWeight();
             }
         };
+        Comparator<Duck> testC = (d1, d2) -> d1.getName().compareTo(d2.getName());
         List<Duck> ducks = new ArrayList<>();
         ducks.add(new Duck("Quack", 7));
         ducks.add(new Duck("Puddles", 10));
 
+
+        ducks.stream().sorted(byWeight.thenComparing((d1, d2) -> d1.getName().compareTo(d2.getName()))); // if two elements are equal then use this comparator
         // different ways of sorting
         Collections.sort(ducks); // comparable
         System.out.println(ducks); // [Puddles, Quack]
         Collections.sort(ducks, byWeight);
         System.out.println(ducks); // [Quack, Puddles]
-        java.util.Collections.sort(ducks, (p1, p2)->p1.getName().compareTo(p2.getName()));
+        java.util.Collections.sort(ducks, (p1, p2) -> p1.getName().compareTo(p2.getName()));
         java.util.Collections.sort(ducks, Comparator.comparing(Duck::getName));
 
-        Map<String, Set<Integer>> collect = ducks.stream().collect(Collectors.groupingBy(Duck::getName, Collectors.mapping(Duck::getWeight, Collectors.toSet())));
+        Map<String, List<Integer>> collect = ducks.stream().collect(Collectors.groupingBy(Duck::getName, Collectors.mapping(Duck::getWeight, Collectors.toList())));
 
 
 
@@ -176,16 +187,18 @@ public class DataStructures {
         });
 
         // pass comperator as parameter or implement comparable within rabbit
-        rabbit.addAll(Arrays.asList(new Rabbit(3),new Rabbit(4)));
+        rabbit.addAll(Arrays.asList(new Rabbit(3), new Rabbit(4)));
 
-        HashMap<Integer,Integer>  tester = new HashMap<>(10);
+        HashMap<Integer, Integer> tester = new HashMap<>(10);
 
         Sorted s11 = new Sorted(88, "a");
         Sorted s22 = new Sorted(55, "b");
         TreeSet<Sorted> t1 = new TreeSet<>();
-        t1.add(s11); t1.add(s22);
+        t1.add(s11);
+        t1.add(s22);
         TreeSet<Sorted> t2 = new TreeSet<>(s11);
-        t2.add(s11); t2.add(s22);
+        t2.add(s11);
+        t2.add(s22);
         System.out.println(t1 + " " + t2);
 
 
@@ -195,7 +208,7 @@ public class DataStructures {
           */
 
         BiFunction<String, String, String> mapper = (v1, v2)
-                -> v1.length() > v2.length() ? v1: v2;
+                -> v1.length() > v2.length() ? v1 : v2;
         Map<String, String> favorites = new HashMap<>();
         favorites.put("Jenny", "Bus Tour");
         favorites.put("Tom", "Tram");
@@ -204,24 +217,29 @@ public class DataStructures {
         System.out.println(favorites); // {Tom=Skyride, Jenny=Bus Tour}
         System.out.println(jenny); // Bus Tour
         System.out.println(tom); // Skyride
-        favorites.putIfAbsent("Jenny","alreadyThere"); // i.e usage in a cache
+        favorites.putIfAbsent("Jenny", "alreadyThere"); // i.e usage in a cache
 
 
         // Navigatable Map --> Threadsafe
 
         NavigableMap<String, String> mymap = new TreeMap<String, String>();
-        mymap.put("a", "apple"); mymap.put("b", "boy"); mymap.put("c", "cat");
-        mymap.put("aa", "apple1"); mymap.put("bb", "boy1"); mymap.put("cc", "cat1");
+        mymap.put("a", "apple");
+        mymap.put("b", "boy");
+        mymap.put("c", "cat");
+        mymap.put("aa", "apple1");
+        mymap.put("bb", "boy1");
+        mymap.put("cc", "cat1");
 
         mymap.pollLastEntry(); //LINE 1
         mymap.pollFirstEntry(); //LINE 2
 
-        NavigableMap<String, String> tailmap = mymap.tailMap("bb", false); //LINE 3
+        NavigableMap<String, String> tailmap = mymap.tailMap("bb", false); //LINE 3 p whose keys are greater than (or equal to, if {@code inclusive} is true)
+        //therefore we get c and cc back. c is polled then
 
         System.out.println(tailmap.pollFirstEntry()); //LINE 4
         System.out.println(mymap.size()); //LINE 5
 
-        NavigableMap<String,Integer> navigableMap=new TreeMap<String, Integer>();
+        NavigableMap<String, Integer> navigableMap = new TreeMap<String, Integer>();
 
         navigableMap.put("X", 500);
         navigableMap.put("B", 600);
@@ -230,28 +248,28 @@ public class DataStructures {
         navigableMap.put("Y", 900);
         navigableMap.put("Z", 200);
 
-        System.out.printf("Descending Set  : %s%n",navigableMap.descendingKeySet());
+        System.out.printf("Descending Set  : %s%n", navigableMap.descendingKeySet());
 
-        System.out.printf("Floor Entry  : %s%n",navigableMap.floorEntry("L"));
+        System.out.printf("Floor Entry  : %s%n", navigableMap.floorEntry("L"));
 
-        System.out.printf("First Entry  : %s%n",navigableMap.firstEntry());
+        System.out.printf("First Entry  : %s%n", navigableMap.firstEntry());
 
-        System.out.printf("Last Key : %s%n",navigableMap.lastKey());
+        System.out.printf("Last Key : %s%n", navigableMap.lastKey());
 
-        System.out.printf("First Key : %s%n",navigableMap.firstKey());
+        System.out.printf("First Key : %s%n", navigableMap.firstKey());
 
-        System.out.printf("Original Map : %s%n",navigableMap);
+        System.out.printf("Original Map : %s%n", navigableMap);
 
-        System.out.printf("Reverse Map : %s%n",navigableMap.descendingMap());
+        System.out.printf("Reverse Map : %s%n", navigableMap.descendingMap());
 
 
-        Deque<Integer> d = new ArrayDeque<>();
-        d.push(1);
-        d.push(2);
-        d.push(3);
-        System.out.println(d.remove());
-        System.out.println(d.remove());
-        System.out.println(d.remove());
+        Deque<Integer> d2 = new ArrayDeque<>();
+        d2.push(1);
+        d2.push(2);
+        d2.push(3);
+        System.out.println(d2.remove());
+        System.out.println(d2.remove());
+        System.out.println(d2.remove());
 
         TreeSet<Integer> s = new TreeSet<Integer>();
         TreeSet<Integer> subs = new TreeSet<Integer>();
@@ -262,7 +280,14 @@ public class DataStructures {
         subs = (TreeSet) s.subSet(326, true, 328, true); //from inlusive, to inclusive
         //        subs.add(329); // key out of range exception
         System.out.println(s + " " + subs);
-        NavigableSet<Integer> naviSet = new TreeSet<>();
+        SortedSet<Rabbit> naviSet = new TreeSet<>((a,b) -> b.id - a.id); // descending --> a.id -b.id ascending
+        naviSet.add(new Rabbit(1));
+        naviSet.add(new Rabbit(2));
+        System.out.println("Order of navigableSet: "+naviSet);
+
+
+
+
         Integer floor = s.floor(330);// greatest element in this set less than or equal to
         Integer ceiling = s.ceiling(330);// greatest element in this set less than or equal to
         System.out.println(ceiling); // null in this case
@@ -273,15 +298,24 @@ public class DataStructures {
 
 
 
+        /*
+        BINARY SEARCH
+        input must be sorted set
+        divides tree by two every iteration
+         */
+
+        String[] sa = {"a", "aa", "aaa", "aaaa"};
+        Arrays.sort(sa);
+        String search = "";
+        System.out.println("Item found at index: (if < -1 not found)"+Arrays.binarySearch(sa, "aaaa"));
 
 
     }
 
 
-
-
 }
- class Sorted implements Comparable<Sorted>, Comparator<Sorted> {
+
+class Sorted implements Comparable<Sorted>, Comparator<Sorted> {
     private int num;
     private String text;
 
@@ -309,6 +343,13 @@ class Rabbit {
 
     public Rabbit(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Rabbit{" +
+                "id=" + id +
+                '}';
     }
 }
 

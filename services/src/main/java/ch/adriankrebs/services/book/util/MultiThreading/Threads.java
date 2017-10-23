@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by Adrian on 12/29/2016.
  */
 public class Threads {
-
+    int counter;
     public static void main(String[] args) throws InterruptedException {
 
         ExecutorService service = null;
@@ -49,6 +49,13 @@ public class Threads {
         a.start();
         Thread.sleep(1000);
         a.interrupt();
+
+
+        Threads t = new Threads();
+        System.out.println(t.counter++);
+
+
+        int threadSafeRandom = ThreadLocalRandom.current().nextInt(1,11);
     }
 
 
@@ -67,6 +74,8 @@ public class Threads {
     public static synchronized void executerServiceTester() throws InterruptedException {
 
         AtomicInteger integer = new AtomicInteger();
+        integer.incrementAndGet();
+        integer.getAndIncrement();
         integer.compareAndSet(0,1);
         ExecutorService service = null;
         try {
@@ -152,6 +161,37 @@ public class Threads {
     }
 }
 
+interface Eatable{
+}
+class Food implements Eatable {
+    public static int types = 20;
+}
+ class Fruit extends Food implements Eatable{  //LINE1
+
+    public static void main(String[] args) {
+         types = 30; //LINE 2
+        System.out.println(types); //LINE 3
+    }
+}
+
+ class TestClass extends Thread
+{
+    private static int threadcounter = 0;
+    public synchronized void run()
+    {
+        threadcounter++;
+        System.out.println(threadcounter);
+    }
+    public static void main(String[] args) throws Exception
+    {
+        for(int i=0; i<5; i++)
+        {
+            new TestClass().start();
+        }
+        System.out.println(threadcounter+" DONE");
+    }
+}
+
 
 class Counter
 {
@@ -172,6 +212,7 @@ class Counter
         };
         Thread t = new Thread(a); // this works perfectly fine since thread implements runnable and the thread constructor takes a runanble
         t.start();
+
     }
 }
 

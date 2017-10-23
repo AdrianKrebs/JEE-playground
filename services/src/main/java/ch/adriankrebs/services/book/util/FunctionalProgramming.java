@@ -62,9 +62,6 @@ public class FunctionalProgramming {
 
 
 
-
-
-
         /*
         SUPPLIER
          */
@@ -141,8 +138,17 @@ public class FunctionalProgramming {
         s.findAny().ifPresent(System.out::println); // monkey
         infinite.findAny().ifPresent(System.out::println); // chimp
 
+//        boolean flag = s.findAny().get().contains("gorilla");
+
+
         //match
         List<String> stringList1 = Arrays.asList("monkey", "2", "chimp");
+        Map box = new HashMap();
+        box.put("test","test");
+
+        Object test1 = box.get("test");
+        HashMap<?, List<String>> box2 = new HashMap<String, List<String>>();
+        box2.values();
         Predicate<String> pred = x -> Character.isLetter(x.charAt(0));
         System.out.println(stringList1.stream().anyMatch(pred)); // true
         System.out.println(stringList1.stream().allMatch(pred)); // false
@@ -156,7 +162,13 @@ public class FunctionalProgramming {
         //System.out.println(word); // wolf
 
         Stream<Integer> numbers = Stream.of(1, 2, 3, 4); // caution here: define the type of the Stream!
-        System.out.println(numbers.reduce(1, (a, b) -> a * b));
+
+        System.out.println("STATISTICS:::::::");
+        System.out.println(numbers.collect(Collectors. mapping(x->x, Collectors.summarizingInt(x->x))).getSum());
+        System.out.println(numbers.collect(Collectors.summarizingInt(x->x)).getSum());
+
+        int reduce = numbers.reduce(1, (a, b) -> a * b); // identifier therefore int/Integer
+        numbers.reduce((a, b) -> a * b); // no identifier provided, therefore optional
         BinaryOperator<Integer> op = (a, b) -> a * b;
         Stream<Integer> empty = Stream.empty();
         Stream<Integer> oneElement = Stream.of(3);
@@ -218,6 +230,9 @@ public class FunctionalProgramming {
         if (stats.getCount() == 0) throw new RuntimeException();
         System.out.println(stats.getMax() - stats.getMin());
 
+
+
+
         //boolean supplier
         BooleanSupplier booleanSupplier = () -> true;
         System.out.println(booleanSupplier);
@@ -227,6 +242,12 @@ public class FunctionalProgramming {
         int max = ls.stream().mapToInt(Integer::intValue).max().getAsInt();
                 System.out.println(max); //1
 
+
+        IntStream intStream1  = IntStream.range(1,3); // 1,2
+        IntStream intStream2 = IntStream.rangeClosed(1,3); // 1,2,3
+        IntStream intStream3 = IntStream.concat(intStream1, intStream2);
+
+        Object group3 = intStream3.boxed().collect(Collectors.groupingBy(b -> b)).get(3);
 
 
 
@@ -266,9 +287,9 @@ public class FunctionalProgramming {
                 Collections.synchronizedList(new ArrayList<Integer>());
 
         source
-                .stream()  //1
-                .peek(item->{destination.add(item); }) //2
-                .forEachOrdered(System.out::print);
+                .stream()  //1 /
+                .peek(item->{destination.add(item); }) // items are added unordered to destination
+                .forEachOrdered(System.out::print); // processes elements in order of underlying source
         System.out.println("");
         destination
                 .stream() //3
@@ -300,7 +321,7 @@ public class FunctionalProgramming {
 //        Optional<Double> secondPrice = Optional.ofNullable(getPrice("1111"));
 //        Double y = secondPrice.orElseGet(() -> getPrice("333"));
 //
-//        Optional<Double> thirdPrice = Optional.ofNullable(getPrice("1111"));
+        Optional<Double> thirdPrice = Optional.ofNullable(new Double("1111"));
 //        Double x = thirdPrice.orElse(getPrice("2222"));
 //        System.out.println(x);
 
@@ -368,5 +389,62 @@ public class FunctionalProgramming {
         }
     }
 
+    static class Account {
+        private String id;
+        public Account(String id){ this.id = id; }
+        //accessors not shown
+    }
+     static class BankAccount extends Account{
+        private double balance;
+        public BankAccount(String id, double balance){ super(id); this.balance = balance;}
+
+        //accessors not shown
+
+        public static void main(String[] args) {
+            Map<String, Account> myAccts = new HashMap<>();
+            myAccts.put("111", new Account("111"));
+            myAccts.put("222", new BankAccount("111", 200.0));
+
+            BiFunction<String, Account, Account> bif = // be aware that last argument is result
+                    (a1, a2)-> a2 instanceof BankAccount?new BankAccount(a1, 300.0):new Account(a1); //1
+
+            myAccts.computeIfPresent("222", bif);//2
+            BankAccount ba = (BankAccount) myAccts.get("222");
+
+
+            double principle = new Integer(100); // unboxing 32 to double 64
+            double tester = new Double(100); // cant put 64 bit object into 32 bit obj
+            int interestrate = 5;
+            double amount = compute(principle, x->x*interestrate);
+
+
+
+
+        }
+         public static double compute(double base, Function<Integer, Integer > func){
+             return func.apply((int)base);
+         }
+
+    }
+
 }
 
+class TestClass123123 implements I1, I2{
+public void m1() { System.out.println("Hello"); }
+public static void main(String[] args){
+    TestClass123123 tc = new TestClass123123();
+        ( (I1) tc).m1();
+        }
+
+        class C {}
+
+        C c = new C();
+        }
+interface I1{
+    int VALUE = 1;
+    void m1();
+}
+interface I2{
+    int VALUE = 2;
+    void m1();
+}
