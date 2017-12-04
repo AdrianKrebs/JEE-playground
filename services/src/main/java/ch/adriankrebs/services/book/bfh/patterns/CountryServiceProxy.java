@@ -1,5 +1,6 @@
 package ch.adriankrebs.services.book.bfh.patterns;
 
+import javax.enterprise.inject.Alternative;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +12,18 @@ import java.util.logging.Logger;
 /**
  * Created by Adrian on 10/23/2017.
  */
-public class CountryServiceProxy implements ICountryService{
+
+
+/**
+ * To handle client-specific business logic that is determined at runtime
+   To specify beans that are valid for a particular deployment scenario (for example,
+ when country-specific sales tax laws require country-specific sales tax business
+ logic)
+  To create dummy (mock) versions of beans to be used for testing
+  To create dummy (mock) versions of beans to be used for testing
+ */
+@Alternative
+public class CountryServiceProxy implements CountryService {
 
     private static final Logger LOGGER = Logger.getLogger(CountryServiceProxy.class
             .getName());
@@ -25,6 +37,7 @@ public class CountryServiceProxy implements ICountryService{
      */
     @Override
     public String getCountryName(String countryCode) {
+        LOGGER.info("remote");
         try {
             URL url = new URL(dsServerUrl + countryCode);
             return this.convertStreamToString((InputStream) url.getContent());
